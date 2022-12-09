@@ -3,14 +3,13 @@ package com.uc.vpfinalproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.uc.vpfinalproject.databinding.ActivityLoginBinding
+import com.uc.vpfinalproject.databinding.ActivityRegisterBinding
 
-class LoginActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityLoginBinding
+class RegisterActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityRegisterBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
     }
 }
