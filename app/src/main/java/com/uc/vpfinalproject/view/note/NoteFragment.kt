@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Notes
+package com.uc.vpfinalproject.view.note
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.uc.vpfinalproject.databinding.FragmentDashboardBinding
+import com.uc.vpfinalproject.databinding.FragmentNoteBinding
+import com.uc.vpfinalproject.viewmodel.note.NoteViewModel
 
-class DashboardFragment : Fragment() {
+class NoteFragment : Fragment() {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentNoteBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,9 +24,9 @@ class DashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+            ViewModelProvider(this).get(NoteViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentNoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textDashboard

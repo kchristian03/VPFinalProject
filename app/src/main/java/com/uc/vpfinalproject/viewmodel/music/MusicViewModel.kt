@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Music
+package com.uc.vpfinalproject.viewmodel.music
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

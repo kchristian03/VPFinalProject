@@ -1,10 +1,11 @@
-package com.uc.vpfinalproject
+package com.uc.vpfinalproject.view
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
+import com.uc.vpfinalproject.R
+import com.uc.vpfinalproject.view.auth.LoginActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
 
         Handler().postDelayed({
-            val intent = Intent(this, NavBarActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000)

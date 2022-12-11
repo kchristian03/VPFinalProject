@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.uc.vpfinalproject.Meditation.HomeFragment"
+        android:name="com.uc.vpfinalproject.view.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.uc.vpfinalproject.Notes.DashboardFragment"
+        android:name="com.uc.vpfinalproject.view.note.NoteFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_note" />
 
     <fragment
         android:id="@+id/navigation_yoga"
-        android:name="com.uc.vpfinalproject.Yoga.YogaFragment"
+        android:name="com.uc.vpfinalproject.view.yoga.YogaFragment"
         android:label="navigation_yoga"
         tools:layout="@layout/fragment_yoga" />
     <fragment
         android:id="@+id/navigation_music"
-        android:name="com.uc.vpfinalproject.Music.MusicFragment"
+        android:name="com.uc.vpfinalproject.view.music.MusicFragment"
         android:label="MusicFragment" />
 </navigation>

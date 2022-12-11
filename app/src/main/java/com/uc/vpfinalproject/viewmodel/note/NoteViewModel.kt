@@ -1,13 +1,13 @@
-package com.uc.vpfinalproject.Yoga
+package com.uc.vpfinalproject.viewmodel.note
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class NoteViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+        value = "This is note Fragment"
     }
     val text: LiveData<String> = _text
 }

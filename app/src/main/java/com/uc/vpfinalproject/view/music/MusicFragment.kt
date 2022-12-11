@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Yoga
+package com.uc.vpfinalproject.view.music
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.uc.vpfinalproject.databinding.FragmentYogaBinding
+import com.uc.vpfinalproject.viewmodel.music.MusicViewModel
+import com.uc.vpfinalproject.databinding.FragmentMusicBinding
 
-class YogaFragment : Fragment() {
+class MusicFragment : Fragment() {
 
-    private var _binding: FragmentYogaBinding? = null
+    private var _binding: FragmentMusicBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,16 +23,17 @@ class YogaFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val dashboardViewModel =
+            ViewModelProvider(this).get(MusicViewModel::class.java)
 
-        _binding = FragmentYogaBinding.inflate(inflater, container, false)
+        _binding = FragmentMusicBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
+        dashboardViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
+
         return root
     }
 

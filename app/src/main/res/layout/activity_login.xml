@@ -4,15 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".view.auth.RegisterActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TIL_login_username"
+        style="?attr/textInputOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        app:endIconMode="none"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:passwordToggleEnabled="false"
+        app:startIconDrawable="@drawable/ic_outline_username_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_username"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TIL_login_password"
+        style="?attr/textInputOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        app:endIconCheckable="false"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="@+id/TIL_login_username"
+        app:layout_constraintStart_toStartOf="@+id/TIL_login_username"
+        app:layout_constraintTop_toBottomOf="@+id/TIL_login_username"
+        app:startIconDrawable="@drawable/ic_outline_password_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="256dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_512_zenzen" />
+
+    <Button
+        android:id="@+id/button_login_login"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#DB00FF"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:maxHeight="48dp"
+        android:minHeight="48dp"
+        android:text="@string/login"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/TIL_login_password"
+        app:layout_constraintStart_toStartOf="@+id/TIL_login_password"
+        app:layout_constraintTop_toBottomOf="@+id/TIL_login_password" />
+
+    <TextView
+        android:id="@+id/button_login_goToRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:maxHeight="48dp"
+        android:minHeight="48dp"
+        android:text="@string/goToRegis"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_login_login"
+        app:layout_constraintStart_toStartOf="@+id/button_login_login" />
 </androidx.constraintlayout.widget.ConstraintLayout>
