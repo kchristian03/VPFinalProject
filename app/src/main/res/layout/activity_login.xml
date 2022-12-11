@@ -23,6 +23,7 @@
         app:startIconDrawable="@drawable/ic_outline_username_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TextInput_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_username"
@@ -46,6 +47,7 @@
         app:startIconDrawable="@drawable/ic_outline_password_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/TextInput_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"

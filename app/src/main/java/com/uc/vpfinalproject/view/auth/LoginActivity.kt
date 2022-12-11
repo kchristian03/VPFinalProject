@@ -20,6 +20,16 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.buttonLoginLogin.setOnClickListener {
+            val username = binding.TextInputLoginUsername.text.toString()
+            val password = binding.TextInputLoginPassword.text.toString()
+
+
+
+
+
+
+
+
             val intent = Intent(this, NavBarActivity::class.java)
             startActivity(intent)
         }
