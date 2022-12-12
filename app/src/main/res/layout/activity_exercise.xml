@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     android:background="#140017"
     android:backgroundTint="#140017"
-    tools:context=".Yoga.ExerciseActivity">
+    tools:context=".view.yoga.ExerciseActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="272dp"
-        android:layout_height="272dp"
+        android:layout_width="245dp"
+        android:layout_height="245dp"
         android:layout_marginTop="72dp"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:text="10:10"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
@@ -51,24 +51,25 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/pauseBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:background="#F19EFF"
         android:backgroundTint="#F19EFF"
         android:text="PAUSE"
         android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/cardView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

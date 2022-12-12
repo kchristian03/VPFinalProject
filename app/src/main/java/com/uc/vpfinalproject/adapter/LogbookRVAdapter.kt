@@ -1,11 +1,11 @@
-package com.uc.vpfinalproject.Notes.Adapter
+package com.uc.vpfinalproject.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.uc.vpfinalproject.Notes.Model.Note
-import com.uc.vpfinalproject.Notes.Cardlistener
+import com.uc.vpfinalproject.model.Note
+import com.uc.vpfinalproject.view.note.Cardlistener
 import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.CardNoteBinding
 

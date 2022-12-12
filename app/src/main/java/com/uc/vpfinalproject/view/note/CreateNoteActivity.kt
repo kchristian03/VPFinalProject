@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Notes
+package com.uc.vpfinalproject.view.note
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

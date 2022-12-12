@@ -1,8 +1,8 @@
-package com.uc.vpfinalproject.Yoga
+package com.uc.vpfinalproject.view.yoga
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.uc.vpfinalproject.viewmodel.Yoga.YogaViewModel
 import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.FragmentYogaBinding
+import com.uc.vpfinalproject.view.NavBarActivity
+import com.uc.vpfinalproject.view.note.CreateNoteActivity
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -30,8 +32,6 @@ class YogaFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(YogaViewModel::class.java)
 
         _binding = FragmentYogaBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -60,6 +60,11 @@ class YogaFragment : Fragment() {
                 binding.hiddenView.visibility = View.VISIBLE
                 binding.arrowButton.setImageResource(R.drawable.ic_baseline_expand_less_24)
             }
+        }
+
+        binding.imageView.setOnClickListener(){
+            val myIntent = Intent(activity, ExerciseActivity::class.java)
+            requireActivity().startActivity(myIntent)
         }
 
         binding.arrowButton2.setOnClickListener(){

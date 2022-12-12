@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Notes.Model
+package com.uc.vpfinalproject.model
 
 import android.os.Parcel
 

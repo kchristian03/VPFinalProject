@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#140017"
     android:backgroundTint="#140017"
-    tools:context=".Yoga.RestActivity">
+    tools:context=".view.yoga.RestActivity">
 
     <Button
         android:id="@+id/addtimeBTN"
@@ -34,6 +34,7 @@
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardView5"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -130,8 +131,8 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="300dp"
-                android:layout_height="220dp"
-                android:layout_marginTop="10dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toTopOf="@+id/cardView5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/nameTV">
@@ -150,7 +151,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:text="Rest"
         android:textColor="#FFFFFF"
         android:textSize="34sp"
@@ -163,7 +164,7 @@
         android:id="@+id/resttimeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
         android:textSize="24sp"

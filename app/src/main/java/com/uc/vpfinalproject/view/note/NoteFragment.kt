@@ -7,16 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.uc.vpfinalproject.Notes.Adapter.LogbookRVAdapter
-import com.uc.vpfinalproject.Notes.Model.Note
-import com.uc.vpfinalproject.databinding.FragmentDashboardBinding
-import androidx.lifecycle.ViewModelProvider
+import com.uc.vpfinalproject.adapter.LogbookRVAdapter
+import com.uc.vpfinalproject.model.Note
 import com.uc.vpfinalproject.databinding.FragmentNoteBinding
-import com.uc.vpfinalproject.viewmodel.note.NoteViewModel
 
-class DashboardFragment : Fragment(), Cardlistener {
+class NoteFragment : Fragment(), Cardlistener {
 
-    private var _binding: FragmentDashboardBinding? = null
+    private var _binding: FragmentNoteBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,8 +28,6 @@ class DashboardFragment : Fragment(), Cardlistener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
 
         _binding = FragmentNoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -41,6 +36,8 @@ class DashboardFragment : Fragment(), Cardlistener {
             val myIntent = Intent(activity, CreateNoteActivity::class.java)
             requireActivity().startActivity(myIntent)
         }
+
+        Display()
 
         return root
     }
