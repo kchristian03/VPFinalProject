@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Music
+package com.uc.vpfinalproject.view.music
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.uc.vpfinalproject.databinding.FragmentDashboardBinding
+import com.uc.vpfinalproject.viewmodel.music.MusicViewModel
 import com.uc.vpfinalproject.databinding.FragmentMusicBinding
 
 class MusicFragment : Fragment() {

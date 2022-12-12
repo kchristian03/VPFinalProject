@@ -7,7 +7,7 @@
     tools:context=".view.auth.RegisterActivity">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/TIL_login_username"
+        android:id="@+id/TIL_register_fullname"
         style="?attr/textInputOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="60dp"
@@ -15,15 +15,33 @@
         android:gravity="center|center_horizontal|center_vertical"
         android:maxHeight="60dp"
         android:minHeight="60dp"
-        app:endIconMode="none"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:passwordToggleEnabled="false"
+        app:startIconDrawable="@drawable/ic_outline_name_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_fullName"
+            android:inputType="textPersonName" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/TIL_login_username"
+        style="?attr/textInputOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center|center_horizontal|center_vertical"
+        android:maxHeight="60dp"
+        android:minHeight="60dp"
+        app:layout_constraintEnd_toEndOf="@+id/TIL_register_fullname"
+        app:layout_constraintStart_toStartOf="@+id/TIL_register_fullname"
+        app:layout_constraintTop_toBottomOf="@+id/TIL_register_fullname"
         app:startIconDrawable="@drawable/ic_outline_username_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/TextInput_login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_username"
@@ -47,7 +65,6 @@
         app:startIconDrawable="@drawable/ic_outline_password_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/TextInput_login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_password"
@@ -75,7 +92,7 @@
         android:gravity="center|center_horizontal|center_vertical"
         android:maxHeight="48dp"
         android:minHeight="48dp"
-        android:text="@string/login"
+        android:text="@string/register"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/TIL_login_password"
         app:layout_constraintStart_toStartOf="@+id/TIL_login_password"
@@ -87,10 +104,11 @@
         android:layout_height="48dp"
         android:layout_marginBottom="24dp"
         android:clickable="true"
+        android:foregroundGravity="center_vertical|center|center_horizontal"
         android:gravity="center|center_horizontal|center_vertical"
         android:maxHeight="48dp"
         android:minHeight="48dp"
-        android:text="@string/goToRegis"
+        android:text="@string/goToLogin"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/button_login_login"

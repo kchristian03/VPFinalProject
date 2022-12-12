@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Meditation
+package com.uc.vpfinalproject.viewmodel.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.uc.vpfinalproject.viewmodel.Yoga.YogaViewModel
 import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.FragmentYogaBinding
 import java.util.*
@@ -29,6 +30,8 @@ class YogaFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val notificationsViewModel =
+            ViewModelProvider(this).get(YogaViewModel::class.java)
 
         _binding = FragmentYogaBinding.inflate(inflater, container, false)
         val root: View = binding.root

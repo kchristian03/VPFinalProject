@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.Notes
+package com.uc.vpfinalproject.view.note
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.uc.vpfinalproject.Notes.Adapter.LogbookRVAdapter
 import com.uc.vpfinalproject.Notes.Model.Note
 import com.uc.vpfinalproject.databinding.FragmentDashboardBinding
+import androidx.lifecycle.ViewModelProvider
+import com.uc.vpfinalproject.databinding.FragmentNoteBinding
+import com.uc.vpfinalproject.viewmodel.note.NoteViewModel
 
 class DashboardFragment : Fragment(), Cardlistener {
 
@@ -28,8 +31,10 @@ class DashboardFragment : Fragment(), Cardlistener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        val dashboardViewModel =
+            ViewModelProvider(this).get(DashboardViewModel::class.java)
 
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        _binding = FragmentNoteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         binding.addNotesBTN.setOnClickListener(){
