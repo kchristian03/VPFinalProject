@@ -1,15 +1,17 @@
 package com.uc.vpfinalproject.Notes
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.uc.vpfinalproject.Notes.Adapter.LogbookRVAdapter
+import com.uc.vpfinalproject.Notes.Model.Note
 import com.uc.vpfinalproject.databinding.FragmentDashboardBinding
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(), Cardlistener {
 
     private var _binding: FragmentDashboardBinding? = null
 
@@ -17,26 +19,65 @@ class DashboardFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    //temp array for rv
+    private val temp = ArrayList<Note>()
+    private val mboh = Note("test", "test")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
 
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        binding.addNotesBTN.setOnClickListener(){
+            val myIntent = Intent(activity, CreateNoteActivity::class.java)
+            requireActivity().startActivity(myIntent)
         }
+
         return root
+    }
+
+    private fun init() {
+
+    }
+
+    private fun Display() {
+        temp.add(mboh)
+        val adapter = LogbookRVAdapter(temp, this)
+
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.notesRV.layoutManager = layoutManager
+        binding.notesRV.adapter = adapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onResume() {
+        super.onResume()
+        temp.add(mboh)
+        val adapter = LogbookRVAdapter(temp, this)
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun onCardClick(position: Int) {
+
+        val myIntent = Intent(activity, CreateNoteActivity::class.java).apply {
+            putExtra("position", position)
+        }
+        startActivity(myIntent)
+    }
+
+    override fun onCardClicked(view: View, position: Int) {
+
+        val myIntent = Intent(activity, CreateNoteActivity::class.java).apply {
+            putExtra("position", position)
+        }
+        startActivity(myIntent)
     }
 }

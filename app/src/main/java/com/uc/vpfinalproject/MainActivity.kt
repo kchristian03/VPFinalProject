@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar!!.hide()
 
-
         Handler().postDelayed({
             val intent = Intent(this, NavBarActivity::class.java)
             startActivity(intent)
