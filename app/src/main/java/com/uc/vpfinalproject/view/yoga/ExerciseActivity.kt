@@ -1,16 +1,24 @@
 package com.uc.vpfinalproject.view.yoga
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.uc.vpfinalproject.R
+import android.os.CountDownTimer
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.uc.vpfinalproject.databinding.ActivityExerciseBinding
-import com.uc.vpfinalproject.databinding.ActivityNavBarBinding
+import com.uc.vpfinalproject.model.Exercise
 import com.uc.vpfinalproject.view.NavBarActivity
 
 class ExerciseActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityExerciseBinding
+    private val Program = ArrayList<Exercise>()
+    private var curExercise = Exercise("", 0, "", "")
+    private var position: Int = 0
+    lateinit var countdown_timer: CountDownTimer
+    var time = 0
+    var isRunning: Boolean = true;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,11 +27,207 @@ class ExerciseActivity : AppCompatActivity() {
 
         supportActionBar!!.hide()
 
+        if(intent.hasExtra("position")){
+            position = intent.getIntExtra("position", -1)
+            Log.d("tttt", position.toString())
+        }
 
+        if(position == 0){
+            Setup()
+        }else if(position == -1){
+            val myIntent2 = Intent(this@ExerciseActivity.applicationContext, NavBarActivity::class.java)
+            startActivity(myIntent2)
+            finish()
+        }else {
+            val program = intent.extras!!.getString("lvl")
+            if(program.equals("beginner")){
+                Beginner()
+            }else if(program.equals("intermediate")){
+                Intermediate()
+            }else{
+                Advanced()
+            }
+            ExerciseNow(position)
+        }
+        Listener()
+
+    }
+
+    private fun Listener() {
         binding.pauseBTN.setOnClickListener(){
-            val intent = Intent(this, RestActivity::class.java)
-            startActivity(intent)
+            if(isRunning){
+                pauseTimer()
+            }else{
+                resumeTimer()
+            }
+        }
+
+        binding.nextBTN.setOnClickListener(){
+            val next = findIndex(Program, curExercise) + 1
+            countdown_timer.cancel()
+            val myIntent = Intent(this@ExerciseActivity.applicationContext, RestActivity::class.java).apply {
+                putExtra("lvl", curExercise.difficulty)
+                putExtra("position", next)
+            }
+            myIntent.putExtra("lvl", curExercise.difficulty)
+            myIntent.putExtra("position", next)
+
+            startActivity(myIntent)
             finish()
         }
+
+        binding.prevBTN.setOnClickListener(){
+            val next = findIndex(Program, curExercise) - 1
+            countdown_timer.cancel()
+
+            if(next == -1){
+                val myIntent2 = Intent(this@ExerciseActivity.applicationContext, NavBarActivity::class.java)
+                startActivity(myIntent2)
+                finish()
+            }else{
+                val myIntent = Intent(this@ExerciseActivity.applicationContext, RestActivity::class.java).apply {
+                    putExtra("lvl", curExercise.difficulty)
+                    putExtra("position", next)
+                }
+                myIntent.putExtra("lvl", curExercise.difficulty)
+                myIntent.putExtra("position", next)
+
+                startActivity(myIntent)
+                finish()
+            }
+        }
     }
+
+    private fun Timer(duration: Int) {
+        var milis = duration * 1000
+        countdown_timer = object : CountDownTimer(milis.toLong(), 1000) {
+
+            // Callback function, fired on regular interval
+            override fun onTick(milis: Long) {
+                time = (milis / 1000).toInt()
+                val minute = (milis / 1000) / 60
+                val seconds = (milis / 1000) % 60
+                binding.durationTV.text = String.format("%02d:%02d", minute, seconds)
+            }
+
+            // Callback function, fired
+            // when the time is up
+            override fun onFinish() {
+                val next = findIndex(Program, curExercise) + 1
+                if(Program.size == next){
+                    val myIntent2 = Intent(this@ExerciseActivity.applicationContext, NavBarActivity::class.java)
+                    startActivity(myIntent2)
+                    finish()
+                }
+
+
+                Log.d("ttttttttttttt", next.toString())
+                val myIntent = Intent(this@ExerciseActivity.applicationContext, RestActivity::class.java).apply {
+                    putExtra("lvl", curExercise.difficulty)
+                    putExtra("position", next)
+                }
+                myIntent.putExtra("lvl", curExercise.difficulty)
+                myIntent.putExtra("position", next)
+
+
+                startActivity(myIntent)
+                finish()
+            }
+        }.start()
+
+        isRunning = true
+    }
+
+    private fun pauseTimer() {
+        countdown_timer.cancel()
+        isRunning = false
+        binding.pauseBTN.text = "RESUME"
+    }
+
+    private fun resumeTimer(){
+        Timer(time)
+        isRunning = true
+        binding.pauseBTN.text = "PAUSE"
+    }
+    
+
+    private fun ExerciseNow(position: Int) {
+        curExercise = Program[position]
+        val c: Context = applicationContext
+        val id: Int = c.resources.getIdentifier("R.drawable." + curExercise.img, null, c.packageName)
+        binding.poseIV.setImageResource(id)
+        binding.poseTV.text = curExercise.name
+        Timer(curExercise.duration!!)
+    }
+
+    private fun Setup() {
+        if(intent.getStringExtra("lvl").equals("beginner")){
+            Beginner()
+        }else if(intent.getStringExtra("lvl").equals("intermediate")){
+            Intermediate()
+        }else if(intent.getStringExtra("lvl").equals("advanced")){
+            Advanced()
+        }else{
+
+        }
+        ExerciseNow(0)
+    }
+
+    private fun Advanced() {
+        var exercise1 = Exercise("Dog Pose", 60, "", "advanced")
+        var exercise2 = Exercise("Tree Pose", 45, "", "advanced")
+        var exercise3 = Exercise("Lotus Pose", 60, "", "advanced")
+        var exercise4 = Exercise("Cobra Pose", 30, "", "advanced")
+        var exercise5 = Exercise("Warrior Pose", 60, "", "advanced")
+        var exercise6 = Exercise("Mountain Pose", 30, "", "advanced")
+        Program.add(exercise1)
+        Program.add(exercise2)
+        Program.add(exercise3)
+        Program.add(exercise4)
+        Program.add(exercise5)
+        Program.add(exercise6)
+    }
+
+    private fun Intermediate() {
+        var exercise1 = Exercise("Dog Pose", 60, "", "intermediate")
+        var exercise2 = Exercise("Tree Pose", 45, "", "intermediate")
+        var exercise3 = Exercise("Lotus Pose", 60, "", "intermediate")
+        var exercise4 = Exercise("Cobra Pose", 30, "", "intermediate")
+        var exercise5 = Exercise("Warrior Pose", 60, "", "advanced")
+        Program.add(exercise1)
+        Program.add(exercise2)
+        Program.add(exercise3)
+        Program.add(exercise4)
+        Program.add(exercise5)
+    }
+
+    private fun Beginner() {
+        var exercise1 = Exercise("Dog Pose", 60, "", "beginner")
+        var exercise2 = Exercise("Tree Pose", 45, "", "beginner")
+        var exercise3 = Exercise("Lotus Pose", 60, "", "beginner")
+        var exercise4 = Exercise("Cobra Pose", 30, "", "beginner")
+        Program.add(exercise1)
+        Program.add(exercise2)
+        Program.add(exercise3)
+        Program.add(exercise4)
+    }
+
+    fun findIndex(arr: ArrayList<Exercise>, item: Exercise): Int {
+        if(arr.indexOf(item) == arr.size){
+            return -1
+        }
+        return arr.indexOf(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        countdown_timer.cancel()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countdown_timer.cancel()
+    }
+
+
 }

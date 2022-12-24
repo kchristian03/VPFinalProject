@@ -8,6 +8,7 @@ import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.view.auth.LoginActivity
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

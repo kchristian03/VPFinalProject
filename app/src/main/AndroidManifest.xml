@@ -13,13 +13,19 @@
         android:theme="@style/Theme.VPFinalProject"
         tools:targetApi="31">
         <activity
+            android:name=".view.yoga.OverviewActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".view.auth.RegisterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".view.note.CreateNoteActivity"
             android:exported="false">

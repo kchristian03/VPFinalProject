@@ -1,15 +1,23 @@
 package com.uc.vpfinalproject.view.yoga
 
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.uc.vpfinalproject.R
-import com.uc.vpfinalproject.databinding.ActivityExerciseBinding
+import android.os.CountDownTimer
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.uc.vpfinalproject.databinding.ActivityRestBinding
+import com.uc.vpfinalproject.model.Exercise
+import com.uc.vpfinalproject.view.NavBarActivity
 
 class RestActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRestBinding
+    private var Program = ArrayList<Exercise>()
+    private var curExercise = Exercise("", 0, "", "")
+    private var Position: Int = -1
+    var time = 0
+    lateinit var countdown_timer: CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +26,172 @@ class RestActivity : AppCompatActivity() {
 
         supportActionBar!!.hide()
 
+        Setup()
 
+        Listener()
+    }
+
+    private fun Listener() {
         binding.addtimeBTN.setOnClickListener(){
-            val intent = Intent(this, ExerciseActivity::class.java)
-            startActivity(intent)
+            countdown_timer.cancel()
+            Timer(time+10)
+        }
+
+        binding.nextBTN.setOnClickListener(){
+            val next = findIndex(Program, curExercise)
+            countdown_timer.cancel()
+            val myIntent = Intent(this@RestActivity.applicationContext, ExerciseActivity::class.java).apply {
+                putExtra("lvl", curExercise.difficulty)
+                putExtra("position", next)
+            }
+            myIntent.putExtra("lvl", curExercise.difficulty)
+            myIntent.putExtra("position", next)
+
+            startActivity(myIntent)
+            finish()
+        }
+
+        binding.prevBTN.setOnClickListener(){
+            val next = findIndex(Program, curExercise)
+            countdown_timer.cancel()
+            val myIntent = Intent(this@RestActivity.applicationContext, ExerciseActivity::class.java).apply {
+                putExtra("lvl", curExercise.difficulty)
+                putExtra("position", next)
+            }
+            myIntent.putExtra("lvl", curExercise.difficulty)
+            myIntent.putExtra("position", next)
+
+            startActivity(myIntent)
             finish()
         }
     }
+
+    private fun Timer(duration: Int) {
+        var milis = duration * 1000
+        countdown_timer = object : CountDownTimer(milis.toLong(), 1000) {
+
+            // Callback function, fired on regular interval
+            override fun onTick(milis: Long) {
+                time = (milis / 1000).toInt()
+                val minute = (milis / 1000) / 60
+                val seconds = (milis / 1000) % 60
+                binding.resttimeTV.text = String.format("%02d:%02d", minute, seconds)
+            }
+
+            // Callback function, fired
+            // when the time is up
+            override fun onFinish() {
+                val next = findIndex(Program, curExercise)
+                val myIntent = Intent(this@RestActivity.applicationContext, ExerciseActivity::class.java).apply {
+                    putExtra("lvl", curExercise.difficulty)
+                    putExtra("position", next)
+                }
+                myIntent.putExtra("lvl", curExercise.difficulty)
+                myIntent.putExtra("position", next)
+                countdown_timer.cancel()
+                startActivity(myIntent)
+                finish()
+            }
+        }.start()
+    }
+
+    private fun ExerciseNow(position: Int) {
+        var program = intent.getStringExtra("lvl")
+        if(program.equals("beginner")){
+            Beginner()
+        }else if(program.equals("intermediate")){
+            Intermediate()
+        }else{
+            Advanced()
+        }
+
+        if(Program.size <= position){
+            //test this habis ini
+            val myIntent2 = Intent(this@RestActivity.applicationContext, NavBarActivity::class.java)
+            startActivity(myIntent2)
+            finish()
+        }else if(Program.size <= 0){
+            val myIntent2 = Intent(this@RestActivity.applicationContext, NavBarActivity::class.java)
+            startActivity(myIntent2)
+            finish()
+        }else{
+            curExercise = Program[position]
+        }
+        val c: Context = applicationContext
+        val id: Int = c.resources.getIdentifier("R.drawable." + curExercise.img, null, c.packageName)
+        binding.poserestIV.setImageResource(id)
+        binding.nameTV.text = curExercise.name
+
+        val minute = curExercise.duration!! / 60
+        val seconds = curExercise.duration!! % 60
+        binding.timeTV.text = String.format("%02d:%02d", minute, seconds)
+
+        Timer(30)
+    }
+
+    private fun Advanced() {
+        var exercise1 = Exercise("Dog Pose", 60, "", "advanced")
+        var exercise2 = Exercise("Tree Pose", 45, "", "advanced")
+        var exercise3 = Exercise("Lotus Pose", 60, "", "advanced")
+        var exercise4 = Exercise("Cobra Pose", 30, "", "advanced")
+        var exercise5 = Exercise("Warrior Pose", 60, "", "advanced")
+        var exercise6 = Exercise("Mountain Pose", 30, "", "advanced")
+        Program.add(exercise1)
+        Program.add(exercise2)
+        Program.add(exercise3)
+        Program.add(exercise4)
+        Program.add(exercise5)
+        Program.add(exercise6)
+    }
+
+    private fun Intermediate() {
+        var exercise1 = Exercise("Dog Pose", 60, "", "intermediate")
+        var exercise2 = Exercise("Tree Pose", 45, "", "intermediate")
+        var exercise3 = Exercise("Lotus Pose", 60, "", "intermediate")
+        var exercise4 = Exercise("Cobra Pose", 30, "", "intermediate")
+        var exercise5 = Exercise("Warrior Pose", 60, "", "advanced")
+        Program.add(exercise1)
+        Program.add(exercise2)
+        Program.add(exercise3)
+        Program.add(exercise4)
+        Program.add(exercise5)
+    }
+
+    private fun Beginner() {
+        var exercise1 = Exercise("Dog Pose", 60, "", "beginner")
+        var exercise2 = Exercise("Tree Pose", 45, "", "beginner")
+        var exercise3 = Exercise("Lotus Pose", 60, "", "beginner")
+        var exercise4 = Exercise("Cobra Pose", 30, "", "beginner")
+        Program.add(exercise1)
+        Program.add(exercise2)
+        Program.add(exercise3)
+        Program.add(exercise4)
+    }
+
+    private fun Setup() {
+        Position = intent.getIntExtra("position", -1)
+        Log.d("ttttttttttttt", Position.toString())
+        if(Position <= 0){
+            finish()
+        }
+        ExerciseNow(Position)
+    }
+
+    fun findIndex(arr: ArrayList<Exercise>, item: Exercise): Int {
+        if(arr.indexOf(item) == arr.size){
+            return -1
+        }
+        return arr.indexOf(item)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        countdown_timer.cancel()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countdown_timer.cancel()
+    }
+
 }

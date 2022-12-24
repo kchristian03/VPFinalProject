@@ -63,7 +63,9 @@ class YogaFragment : Fragment() {
         }
 
         binding.imageView.setOnClickListener(){
-            val myIntent = Intent(activity, ExerciseActivity::class.java)
+            val myIntent = Intent(activity, OverviewActivity::class.java).apply {
+                putExtra("lvl", "beginner")
+            }
             requireActivity().startActivity(myIntent)
         }
 
@@ -85,6 +87,13 @@ class YogaFragment : Fragment() {
             }
         }
 
+        binding.imageView2.setOnClickListener(){
+            val myIntent2 = Intent(activity, OverviewActivity::class.java).apply {
+                putExtra("lvl", "intermediate")
+            }
+            requireActivity().startActivity(myIntent2)
+        }
+
         binding.arrowButton3.setOnClickListener(){
             if(binding.hiddenView3.visibility == View.VISIBLE){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -100,6 +109,13 @@ class YogaFragment : Fragment() {
                 binding.arrowButton3.setImageResource(R.drawable.ic_baseline_expand_less_24)
             }
         }
+
+        binding.imageView3.setOnClickListener(){
+            val myIntent3 = Intent(activity, OverviewActivity::class.java).apply {
+                putExtra("lvl", "advanced")
+            }
+            requireActivity().startActivity(myIntent3)
+        }
     }
 
     override fun onDestroyView() {
@@ -107,3 +123,4 @@ class YogaFragment : Fragment() {
         _binding = null
     }
 }
+
