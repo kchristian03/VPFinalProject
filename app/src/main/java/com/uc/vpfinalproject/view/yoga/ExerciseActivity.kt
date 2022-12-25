@@ -79,6 +79,8 @@ class ExerciseActivity : AppCompatActivity() {
         binding.prevBTN.setOnClickListener(){
             val next = findIndex(Program, curExercise) - 1
             countdown_timer.cancel()
+            Log.d("tttt", next.toString())
+
 
             if(next == -1){
                 val myIntent2 = Intent(this@ExerciseActivity.applicationContext, NavBarActivity::class.java)
@@ -115,6 +117,7 @@ class ExerciseActivity : AppCompatActivity() {
             override fun onFinish() {
                 val next = findIndex(Program, curExercise) + 1
                 if(Program.size == next){
+                    Log.d("tttt", "wtf")
                     val myIntent2 = Intent(this@ExerciseActivity.applicationContext, NavBarActivity::class.java)
                     startActivity(myIntent2)
                     finish()

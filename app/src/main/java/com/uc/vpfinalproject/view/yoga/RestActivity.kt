@@ -15,7 +15,7 @@ class RestActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRestBinding
     private var Program = ArrayList<Exercise>()
     private var curExercise = Exercise("", 0, "", "")
-    private var Position: Int = -1
+    private var Position: Int = -2
     var time = 0
     lateinit var countdown_timer: CountDownTimer
 
@@ -51,19 +51,6 @@ class RestActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.prevBTN.setOnClickListener(){
-            val next = findIndex(Program, curExercise)
-            countdown_timer.cancel()
-            val myIntent = Intent(this@RestActivity.applicationContext, ExerciseActivity::class.java).apply {
-                putExtra("lvl", curExercise.difficulty)
-                putExtra("position", next)
-            }
-            myIntent.putExtra("lvl", curExercise.difficulty)
-            myIntent.putExtra("position", next)
-
-            startActivity(myIntent)
-            finish()
-        }
     }
 
     private fun Timer(duration: Int) {
@@ -107,10 +94,12 @@ class RestActivity : AppCompatActivity() {
 
         if(Program.size <= position){
             //test this habis ini
+            Log.d("tttt", "1")
             val myIntent2 = Intent(this@RestActivity.applicationContext, NavBarActivity::class.java)
             startActivity(myIntent2)
             finish()
-        }else if(Program.size <= 0){
+        }else if(position == -1){
+            Log.d("tttt", "2")
             val myIntent2 = Intent(this@RestActivity.applicationContext, NavBarActivity::class.java)
             startActivity(myIntent2)
             finish()
@@ -125,6 +114,9 @@ class RestActivity : AppCompatActivity() {
         val minute = curExercise.duration!! / 60
         val seconds = curExercise.duration!! % 60
         binding.timeTV.text = String.format("%02d:%02d", minute, seconds)
+        binding.programmeTV.text = curExercise.difficulty!!.capitalize()
+        var step = (position + 1).toString()
+        binding.stepTV.text = step + "/" + (Program.size + 1).toString()
 
         Timer(30)
     }
@@ -171,7 +163,7 @@ class RestActivity : AppCompatActivity() {
     private fun Setup() {
         Position = intent.getIntExtra("position", -1)
         Log.d("ttttttttttttt", Position.toString())
-        if(Position <= 0){
+        if(Position < 0){
             finish()
         }
         ExerciseNow(Position)
