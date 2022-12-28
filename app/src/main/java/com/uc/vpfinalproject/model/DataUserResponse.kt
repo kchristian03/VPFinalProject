@@ -1,12 +1,20 @@
 package com.uc.vpfinalproject.model
 
+import com.google.gson.annotations.SerializedName
+
 data class DataUserResponse(
-    val CreatedAt: String,
-    val DeletedAt: Any,
-    val Email: String,
-    val ID: Int,
-    val Name: String,
-    val PersonalAccessToken: Any,
-    val UpdatedAt: String,
-    val Username: String
-)
+    @SerializedName("success") val success: Boolean,
+    @SerializedName("message") val message: String,
+    @SerializedName("data") val data: DataUserResponse.Data?,
+) {
+    data class Data(
+        @SerializedName("ID") val ID: Int,
+        @SerializedName("CreatedAt") val CreatedAt: String,
+        @SerializedName("UpdatedAt") val UpdatedAt: String,
+        @SerializedName("DeletedAt") val DeletedAt: String?,
+        @SerializedName("PersonalAccessToken") val PersonalAccessToken: String?,
+        @SerializedName("Name") val Name: String,
+        @SerializedName("Email") val Email: String,
+        @SerializedName("Username") val Username: String,
+    )
+}

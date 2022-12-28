@@ -1,15 +1,27 @@
 package com.uc.vpfinalproject.repository
 
-import com.uc.vpfinalproject.retrovit.EndPointApi
+import com.uc.vpfinalproject.model.*
+import com.uc.vpfinalproject.retrovit.RestApi
+import com.uc.vpfinalproject.retrovit.ServiceBuilder
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Response
 import javax.inject.Inject
 
-class UserRepository @Inject constructor(private val api: EndPointApi) {
-    suspend fun getUserDetail(
-    ) = api.getUser()
+class UserRepository {
+    suspend fun loginUser(loginRequest:DataLoginRequest): Response<DataLoginResponse>? {
+        return  RestApi.getApi()?.login(loginRequest = loginRequest)
+    }
 
-    suspend fun login(
-    ) = api.login()
+    suspend fun registerUser(registerRequest: DataRegisterRequest): Response<DataRegisterResponse>? {
+        return  RestApi.getApi()?.register(registerRequest = registerRequest)
+    }
 
-    suspend fun register(
-    ) = api.register()
+    suspend fun getUser(token: String): Response<DataUserResponse>? {
+        return  RestApi.getApi()?.getUser(token = token)
+    }
+
+    suspend fun logoutUser(token: String): Response<DataLogoutResponse>? {
+        return  RestApi.getApi()?.logoutUser(token = token)
+    }
 }

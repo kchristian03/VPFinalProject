@@ -14,15 +14,15 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun getRetrofitServiceInstance(retrofit: Retrofit):EndPointApi{
-        return retrofit.create(EndPointApi::class.java)
+    fun getRetrofitServiceInstance(retrofit: Retrofit):RestApi{
+        return retrofit.create(RestApi::class.java)
     }
 
     @Singleton
     @Provides
     fun getRetrofitInstance(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Const.BASE_URL_LOCALHOST)
+            .baseUrl(Const.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
