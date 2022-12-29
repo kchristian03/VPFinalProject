@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.uc.vpfinalproject.adapter.LogbookRVAdapter
 import com.uc.vpfinalproject.model.Note
 import com.uc.vpfinalproject.databinding.FragmentNoteBinding
+import com.uc.vpfinalproject.helper.GlobalVar
 
 class NoteFragment : Fragment(), Cardlistener {
 
@@ -20,8 +21,6 @@ class NoteFragment : Fragment(), Cardlistener {
     private val binding get() = _binding!!
 
     //temp array for rv
-    private val temp = ArrayList<Note>()
-    private val mboh = Note("test", "test")
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,8 +46,7 @@ class NoteFragment : Fragment(), Cardlistener {
     }
 
     private fun Display() {
-        temp.add(mboh)
-        val adapter = LogbookRVAdapter(temp, this)
+        val adapter = LogbookRVAdapter(GlobalVar.listLogs, this)
 
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.notesRV.layoutManager = layoutManager
@@ -62,8 +60,7 @@ class NoteFragment : Fragment(), Cardlistener {
 
     override fun onResume() {
         super.onResume()
-        temp.add(mboh)
-        val adapter = LogbookRVAdapter(temp, this)
+        val adapter = LogbookRVAdapter(GlobalVar.listLogs, this)
         adapter.notifyDataSetChanged()
     }
 

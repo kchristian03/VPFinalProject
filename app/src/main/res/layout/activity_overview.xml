@@ -26,6 +26,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="40dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

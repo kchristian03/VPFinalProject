@@ -9,6 +9,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.ActivityNavBarBinding
+import com.uc.vpfinalproject.helper.GlobalVar
+import com.uc.vpfinalproject.model.Note
 
 class NavBarActivity : AppCompatActivity() {
 
@@ -23,6 +25,15 @@ class NavBarActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         supportActionBar!!.hide()
+
+        //temp data
+        val mboh = Note("test", "test", "")
+        GlobalVar.listLogs.add(mboh)
+
+        //save data note ke testNotes disini
+        //code
+
+
 
         val navController = findNavController(R.id.nav_host_fragment_activity_nav_bar)
         // Passing each menu ID as a set of Ids because each
