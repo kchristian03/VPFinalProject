@@ -1,57 +1,142 @@
 package com.uc.vpfinalproject.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.uc.vpfinalproject.model.*
+import com.uc.vpfinalproject.model.auth.*
 import com.uc.vpfinalproject.repository.UserRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import org.json.JSONObject
 
-@HiltViewModel
-class AuthViewModel @Inject constructor(private val repository: UserRepository):ViewModel() {
 
-    val _name: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-    val _token: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-    val _user_id: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
-    }
-    val _id: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
-    }
-    val _expires_at: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-    val name: LiveData<String>
-        get() = _name
-    val token: LiveData<String>
-        get() = _token
-    val user_id: LiveData<Int>
-        get() = _user_id
-    val id: LiveData<Int>
-        get() = _id
-    val expires_at: LiveData<String>
-        get() = _expires_at
+class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun loginVM() = viewModelScope.launch {
-        repository.login().let { response ->
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    _name.postValue(it.data.name)
-                    _token.postValue(it.data.token)
-                    _user_id.postValue(it.data.user_id)
-                    _id.postValue(it.data.id)
-                    _expires_at.postValue(it.data.expires_at)
+    private val userRepo = UserRepository()
+    val loginResult: MutableLiveData<BaseResponse<DataLoginResponse>> = MutableLiveData()
+    val registerResult: MutableLiveData<BaseResponse<DataRegisterResponse>> = MutableLiveData()
+    val logoutResult: MutableLiveData<BaseResponse<DataLogoutResponse>> = MutableLiveData()
+    val getDataResult: MutableLiveData<BaseResponse<DataUserResponse>> = MutableLiveData()
+    val pingResult: MutableLiveData<BaseResponse<DataPingResponse>> = MutableLiveData()
+
+    fun loginUser(username: String, password: String) {
+
+        loginResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val loginRequest = DataLoginRequest(
+                    username = username,
+                    password = password,
+                    remember = true
+                )
+                val response = userRepo.loginUser(loginRequest = loginRequest)
+                if (response?.code() == 200) {
+                    loginResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    loginResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    loginResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
                 }
-            } else {
-                Log.e("Retrieve Data", "Failed!")
+            } catch (ex: Exception) {
+                loginResult.value = BaseResponse.Error(ex.message)
             }
         }
     }
+
+    fun registerUser(name: String, email: String, username: String, password: String) {
+
+        registerResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val registerRequest = DataRegisterRequest(
+                    name = name,
+                    email = email,
+                    username = username,
+                    password = password,
+                    repeat = password,
+                    streak = 0
+                )
+                val response = userRepo.registerUser(registerRequest = registerRequest)
+                if (response?.code() == 200) {
+                    registerResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    registerResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    registerResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                registerResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun logoutUser(token: String) {
+
+        logoutResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val token = "Bearer $token"
+                val response = userRepo.logoutUser(token)
+                if (response?.code() == 200) {
+                    logoutResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    logoutResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    logoutResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                logoutResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun getDataUser(token: String) {
+        getDataResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val token = "Bearer $token"
+                val response = userRepo.getUser(token)
+                if (response?.code() == 200) {
+                    getDataResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    getDataResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    getDataResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                getDataResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun pingServer() {
+        pingResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val response = userRepo.pingServer()
+                if (response.code() == 200) {
+                    pingResult.value = BaseResponse.Success(response.body())
+                } else if (response.code() == 400) {
+                    pingResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    pingResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                pingResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+
 }
