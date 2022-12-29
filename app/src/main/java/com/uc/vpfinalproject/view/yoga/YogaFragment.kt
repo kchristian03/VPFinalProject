@@ -62,7 +62,7 @@ class YogaFragment : Fragment() {
             }
         }
 
-        binding.imageView.setOnClickListener(){
+        binding.beginIV.setOnClickListener(){
             val myIntent = Intent(activity, OverviewActivity::class.java).apply {
                 putExtra("lvl", "beginner")
             }
@@ -87,7 +87,7 @@ class YogaFragment : Fragment() {
             }
         }
 
-        binding.imageView2.setOnClickListener(){
+        binding.interIV.setOnClickListener(){
             val myIntent2 = Intent(activity, OverviewActivity::class.java).apply {
                 putExtra("lvl", "intermediate")
             }
@@ -110,7 +110,7 @@ class YogaFragment : Fragment() {
             }
         }
 
-        binding.imageView3.setOnClickListener(){
+        binding.advanIV.setOnClickListener(){
             val myIntent3 = Intent(activity, OverviewActivity::class.java).apply {
                 putExtra("lvl", "advanced")
             }

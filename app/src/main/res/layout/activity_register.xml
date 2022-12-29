@@ -115,7 +115,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/beginIV"
                 android:layout_width="0dp"
                 android:layout_height="256dp"
                 android:layout_marginStart="48dp"
@@ -136,9 +136,9 @@
                 android:maxHeight="60dp"
                 android:minHeight="60dp"
                 app:endIconMode="clear_text"
-                app:layout_constraintEnd_toEndOf="@+id/imageView"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                app:layout_constraintEnd_toEndOf="@+id/beginIV"
+                app:layout_constraintStart_toStartOf="@+id/beginIV"
+                app:layout_constraintTop_toBottomOf="@+id/beginIV"
                 app:startIconDrawable="@drawable/ic_outline_name_24">
 
                 <com.google.android.material.textfield.TextInputEditText

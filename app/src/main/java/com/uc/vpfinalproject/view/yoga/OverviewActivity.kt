@@ -58,6 +58,11 @@ class OverviewActivity : AppCompatActivity() {
                 finish()
             }
         }
+        binding.backFAB.setOnClickListener(){
+            val myIntent2 = Intent(this@OverviewActivity.applicationContext, NavBarActivity::class.java)
+            startActivity(myIntent2)
+            finish()
+        }
     }
 
     private fun Setup() {

@@ -36,13 +36,14 @@ class NoteFragment : Fragment(), Cardlistener {
             requireActivity().startActivity(myIntent)
         }
 
+        init()
         Display()
 
         return root
     }
 
     private fun init() {
-
+        //get data from API disini
     }
 
     private fun Display() {

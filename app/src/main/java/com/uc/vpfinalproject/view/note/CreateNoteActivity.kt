@@ -6,12 +6,10 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
-import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.ActivityCreateNoteBinding
 import com.uc.vpfinalproject.helper.GlobalVar
 import com.uc.vpfinalproject.model.Note
 import com.uc.vpfinalproject.view.NavBarActivity
-import java.util.*
 
 class CreateNoteActivity : AppCompatActivity() {
 
@@ -47,10 +45,9 @@ class CreateNoteActivity : AppCompatActivity() {
             }else{
                 binding.progressBarcreatenote.visibility = View.VISIBLE
                 if(position != -1){
-                    var note = GlobalVar.listLogs[position]
-                    note.title = title
-                    note.notes = noteIsi
+
                     //yang ini edit data note
+                    edittemp()
 
 
                     binding.progressBarcreatenote.visibility = View.GONE
@@ -59,6 +56,7 @@ class CreateNoteActivity : AppCompatActivity() {
                 }else{
                     val note = Note(title, noteIsi, "ini uid user")
                     //yang ini create data note
+                    createtemp(note)
 
 
                     binding.progressBarcreatenote.visibility = View.GONE
@@ -70,10 +68,23 @@ class CreateNoteActivity : AppCompatActivity() {
         }
         binding.deletenoteFAB.setOnClickListener(){
             //delete data note
+            GlobalVar.listLogs.removeAt(position)
 
             startActivity(Intent(this, NavBarActivity::class.java))
             finish()
         }
+    }
+
+    private fun createtemp(note: Note) {
+        GlobalVar.listLogs.add(note)
+    }
+
+    private fun edittemp() {
+        var title = binding.createnoteTitle.text.toString().trim()
+        var noteIsi = binding.createnoteContent.text.toString().trim()
+        var note = GlobalVar.listLogs[position]
+        note.title = title
+        note.notes = noteIsi
     }
 
     private fun GetIntent() {

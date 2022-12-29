@@ -12,10 +12,11 @@
         android:id="@+id/addtimeBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F19EFF"
-        android:backgroundTint="#F19EFF"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:text="+10s"
         android:textColor="#000000"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="410dp"
         android:layout_marginBottom="-10dp"
+        android:background="#FEFEFE"
+        android:backgroundTint="#FEFEFE"
         app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,8 +55,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="10dp"
-                        android:background="#FFFFFF"
-                        android:backgroundTint="#FFFFFF"
+                        android:background="#CACACA"
+                        android:backgroundTint="#C3C3C3"
                         android:text="Proceed"
                         android:textColor="#000000"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -71,6 +74,8 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="20dp"
                 android:text="TextView"
+                android:textColor="#000000"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="TextView"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="@+id/programmeTV"
                 app:layout_constraintStart_toEndOf="@+id/programmeTV"
                 app:layout_constraintTop_toTopOf="@+id/programmeTV" />
@@ -90,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="TextView"
+                android:textColor="#000000"
                 app:layout_constraintStart_toStartOf="@+id/programmeTV"
                 app:layout_constraintTop_toBottomOf="@+id/programmeTV" />
 
@@ -99,6 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="30dp"
                 android:text="TextView"
+                android:textColor="#000000"
                 app:layout_constraintBottom_toBottomOf="@+id/nameTV"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/nameTV" />
@@ -106,6 +114,9 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="300dp"
                 android:layout_height="200dp"
+                android:outlineAmbientShadowColor="#000000"
+                android:outlineSpotShadowColor="#4E4E4E"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/cardView5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +126,7 @@
                     android:id="@+id/poserestIV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitCenter"
+                    android:scaleType="centerCrop"
                     app:srcCompat="@drawable/ic_launcher_background" />
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

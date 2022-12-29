@@ -26,13 +26,6 @@ class NavBarActivity : AppCompatActivity() {
 
         supportActionBar!!.hide()
 
-        //temp data
-        val mboh = Note("test", "test", "")
-        GlobalVar.listLogs.add(mboh)
-
-        //save data note ke testNotes disini
-        //code
-
 
 
         val navController = findNavController(R.id.nav_host_fragment_activity_nav_bar)

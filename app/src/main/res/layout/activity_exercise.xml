@@ -10,7 +10,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="245dp"
+        android:layout_width="wrap_content"
         android:layout_height="245dp"
         android:layout_marginTop="72dp"
         app:cardCornerRadius="8dp"
@@ -20,8 +20,9 @@
 
         <ImageView
             android:id="@+id/poseIV"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_launcher_background" />
     </androidx.cardview.widget.CardView>
 
@@ -54,10 +55,11 @@
         android:id="@+id/pauseBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#F19EFF"
-        android:backgroundTint="#F19EFF"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF"
         android:text="PAUSE"
         android:textColor="#000000"
+        app:cornerRadius="12dp"
         app:layout_constraintBottom_toTopOf="@+id/cardView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.uc.vpfinalproject.databinding.ActivityRestBinding
 import com.uc.vpfinalproject.model.Exercise
 import com.uc.vpfinalproject.view.NavBarActivity
@@ -106,9 +107,8 @@ class RestActivity : AppCompatActivity() {
         }else{
             curExercise = Program[position]
         }
-        val c: Context = applicationContext
-        val id: Int = c.resources.getIdentifier("R.drawable." + curExercise.img, null, c.packageName)
-        binding.poserestIV.setImageResource(id)
+        val imageId = resources.getIdentifier(curExercise.img, "drawable", applicationContext.packageName)
+        binding.poserestIV.setImageResource(imageId)
         binding.nameTV.text = curExercise.name
 
         val minute = curExercise.duration!! / 60
@@ -122,12 +122,12 @@ class RestActivity : AppCompatActivity() {
     }
 
     private fun Advanced() {
-        var exercise1 = Exercise("Dog Pose", 60, "", "advanced")
-        var exercise2 = Exercise("Tree Pose", 45, "", "advanced")
-        var exercise3 = Exercise("Lotus Pose", 60, "", "advanced")
-        var exercise4 = Exercise("Cobra Pose", 30, "", "advanced")
-        var exercise5 = Exercise("Warrior Pose", 60, "", "advanced")
-        var exercise6 = Exercise("Mountain Pose", 30, "", "advanced")
+        var exercise1 = Exercise("Dog Pose", 60, "dog", "advanced")
+        var exercise2 = Exercise("Tree Pose", 45, "tree", "advanced")
+        var exercise3 = Exercise("Lotus Pose", 60, "lotus", "advanced")
+        var exercise4 = Exercise("Cobra Pose", 30, "cobra", "advanced")
+        var exercise5 = Exercise("Warrior Pose", 60, "warrior", "advanced")
+        var exercise6 = Exercise("Mountain Pose", 30, "mountain", "advanced")
         Program.add(exercise1)
         Program.add(exercise2)
         Program.add(exercise3)
@@ -137,11 +137,11 @@ class RestActivity : AppCompatActivity() {
     }
 
     private fun Intermediate() {
-        var exercise1 = Exercise("Dog Pose", 60, "", "intermediate")
-        var exercise2 = Exercise("Tree Pose", 45, "", "intermediate")
-        var exercise3 = Exercise("Lotus Pose", 60, "", "intermediate")
-        var exercise4 = Exercise("Cobra Pose", 30, "", "intermediate")
-        var exercise5 = Exercise("Warrior Pose", 60, "", "advanced")
+        var exercise1 = Exercise("Dog Pose", 60, "dog", "intermediate")
+        var exercise2 = Exercise("Tree Pose", 45, "tree", "intermediate")
+        var exercise3 = Exercise("Lotus Pose", 60, "lotus", "intermediate")
+        var exercise4 = Exercise("Cobra Pose", 30, "cobra", "intermediate")
+        var exercise5 = Exercise("Warrior Pose", 60, "warrior", "intermediate")
         Program.add(exercise1)
         Program.add(exercise2)
         Program.add(exercise3)
@@ -150,10 +150,10 @@ class RestActivity : AppCompatActivity() {
     }
 
     private fun Beginner() {
-        var exercise1 = Exercise("Dog Pose", 60, "", "beginner")
-        var exercise2 = Exercise("Tree Pose", 45, "", "beginner")
-        var exercise3 = Exercise("Lotus Pose", 60, "", "beginner")
-        var exercise4 = Exercise("Cobra Pose", 30, "", "beginner")
+        var exercise1 = Exercise("Dog Pose", 60, "dog", "beginner")
+        var exercise2 = Exercise("Tree Pose", 45, "tree", "beginner")
+        var exercise3 = Exercise("Lotus Pose", 60, "lotus", "beginner")
+        var exercise4 = Exercise("Cobra Pose", 30, "warrior", "beginner")
         Program.add(exercise1)
         Program.add(exercise2)
         Program.add(exercise3)
