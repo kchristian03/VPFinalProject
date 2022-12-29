@@ -1,4 +1,4 @@
-package com.uc.vpfinalproject.model
+package com.uc.vpfinalproject.model.auth
 
 import com.google.gson.annotations.SerializedName
 
@@ -9,4 +9,4 @@ class DataRegisterRequest(
     @SerializedName("password") val password: String?,
     @SerializedName("repeat") val repeat: String?,
     @SerializedName("streak") val streak: Int?
-) {}
+)

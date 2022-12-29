@@ -10,10 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.uc.vpfinalproject.databinding.ActivityLoginBinding
 import com.uc.vpfinalproject.helper.SessionManager
 import com.uc.vpfinalproject.model.BaseResponse
-import com.uc.vpfinalproject.model.DataLoginResponse
+import com.uc.vpfinalproject.model.auth.DataLoginResponse
 import com.uc.vpfinalproject.view.NavBarActivity
 import com.uc.vpfinalproject.viewmodel.AuthViewModel
-import okhttp3.ResponseBody
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

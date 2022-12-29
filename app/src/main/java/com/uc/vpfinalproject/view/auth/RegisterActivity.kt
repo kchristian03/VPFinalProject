@@ -9,8 +9,7 @@ import androidx.activity.viewModels
 import com.uc.vpfinalproject.databinding.ActivityRegisterBinding
 import com.uc.vpfinalproject.helper.SessionManager
 import com.uc.vpfinalproject.model.BaseResponse
-import com.uc.vpfinalproject.model.DataLoginResponse
-import com.uc.vpfinalproject.model.DataRegisterResponse
+import com.uc.vpfinalproject.model.auth.DataRegisterResponse
 import com.uc.vpfinalproject.view.NavBarActivity
 import com.uc.vpfinalproject.viewmodel.AuthViewModel
 

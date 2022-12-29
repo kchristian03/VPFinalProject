@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -16,14 +14,11 @@ import com.uc.vpfinalproject.viewmodel.home.HomeViewModel
 import com.uc.vpfinalproject.databinding.FragmentHomeBinding
 import com.uc.vpfinalproject.helper.SessionManager
 import com.uc.vpfinalproject.model.BaseResponse
-import com.uc.vpfinalproject.model.DataLoginResponse
-import com.uc.vpfinalproject.model.DataLogoutResponse
-import com.uc.vpfinalproject.model.DataUserResponse
+import com.uc.vpfinalproject.model.auth.DataLogoutResponse
+import com.uc.vpfinalproject.model.auth.DataUserResponse
 import com.uc.vpfinalproject.view.MainActivity
-import com.uc.vpfinalproject.view.NavBarActivity
 import com.uc.vpfinalproject.viewmodel.AuthViewModel
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Date
 
 class HomeFragment : Fragment() {

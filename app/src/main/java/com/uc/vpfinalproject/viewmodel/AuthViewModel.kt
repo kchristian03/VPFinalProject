@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.uc.vpfinalproject.model.*
+import com.uc.vpfinalproject.model.auth.*
 import com.uc.vpfinalproject.repository.UserRepository
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -12,11 +13,12 @@ import org.json.JSONObject
 
 class AuthViewModel(application: Application) : AndroidViewModel(application) {
 
-    val userRepo = UserRepository()
+    private val userRepo = UserRepository()
     val loginResult: MutableLiveData<BaseResponse<DataLoginResponse>> = MutableLiveData()
     val registerResult: MutableLiveData<BaseResponse<DataRegisterResponse>> = MutableLiveData()
     val logoutResult: MutableLiveData<BaseResponse<DataLogoutResponse>> = MutableLiveData()
     val getDataResult: MutableLiveData<BaseResponse<DataUserResponse>> = MutableLiveData()
+    val pingResult: MutableLiveData<BaseResponse<DataPingResponse>> = MutableLiveData()
 
     fun loginUser(username: String, password: String) {
 
@@ -112,6 +114,26 @@ class AuthViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } catch (ex: Exception) {
                 getDataResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun pingServer() {
+        pingResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val response = userRepo.pingServer()
+                if (response.code() == 200) {
+                    pingResult.value = BaseResponse.Success(response.body())
+                } else if (response.code() == 400) {
+                    pingResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    pingResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                pingResult.value = BaseResponse.Error(ex.message)
             }
         }
     }
