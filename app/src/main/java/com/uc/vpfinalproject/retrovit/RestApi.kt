@@ -7,22 +7,32 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface RestApi {
+    //ping server (for delay splashscreen)
     @GET(Const.PING_URL)
     suspend fun pingServer(): Response<DataPingResponse>
 
+    //login
     @Headers("Content-Type: application/json")
     @POST(Const.LOGIN_URL)
     suspend fun login(@Body loginRequest: DataLoginRequest): Response<DataLoginResponse>
 
+    //register
     @Headers("Content-Type: application/json")
     @POST(Const.REGISTER_URL)
     suspend fun register(@Body registerRequest: DataRegisterRequest): Response<DataRegisterResponse>
 
+    //logout
     @DELETE(Const.LOGOUT_URL)
     suspend fun logoutUser(@Header("Authorization") token: String): Response<DataLogoutResponse>
 
+    //get-user
     @GET(Const.USER_URL)
     suspend fun getUser(@Header("Authorization") token: String): Response<DataUserResponse>
+
+
+    //get-note
+
+
 
     companion object {
         fun getApi(): RestApi? {

@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun processLogout(data: DataLogoutResponse?) {
-        showToast("" + data?.message)
+//        showToast("" + data?.message)
         activity?.let { it1 -> SessionManager.clearData(it1) }
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
