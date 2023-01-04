@@ -2,6 +2,9 @@ package com.uc.vpfinalproject.retrovit
 
 import com.uc.vpfinalproject.helper.Const
 import com.uc.vpfinalproject.model.*
+import com.uc.vpfinalproject.model.NoteRequest.createNoteRequest
+import com.uc.vpfinalproject.model.NoteRequest.createNoteResponse
+import com.uc.vpfinalproject.model.NoteRequest.deleteNoteResponse
 import com.uc.vpfinalproject.model.auth.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -29,8 +32,16 @@ interface RestApi {
     @GET(Const.USER_URL)
     suspend fun getUser(@Header("Authorization") token: String): Response<DataUserResponse>
 
-
     //get-note
+
+    //create-note
+    @Headers("Content-Type: application/json")
+    @POST(Const.REGISTER_URL)
+    suspend fun createNote(@Body createRequest: createNoteRequest): Response<createNoteResponse>
+
+    //delete-note
+    @DELETE(Const.LOGOUT_URL)
+    suspend fun deleteNote(@Body deleteRequest: deleteNoteResponse): Response<deleteNoteResponse>
 
 
 

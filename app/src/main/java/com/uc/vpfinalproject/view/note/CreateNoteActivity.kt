@@ -6,15 +6,20 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.uc.vpfinalproject.databinding.ActivityCreateNoteBinding
 import com.uc.vpfinalproject.helper.GlobalVar
 import com.uc.vpfinalproject.model.Note
 import com.uc.vpfinalproject.view.NavBarActivity
+import com.uc.vpfinalproject.viewmodel.AuthViewModel
+import com.uc.vpfinalproject.viewmodel.note.NoteViewModel
+import java.util.*
 
 class CreateNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateNoteBinding
     private var position = -1
+    private val viewModel by viewModels<NoteViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +59,7 @@ class CreateNoteActivity : AppCompatActivity() {
                     startActivity(Intent(this, NavBarActivity::class.java))
                     finish()
                 }else{
-                    val note = Note(title, noteIsi, "ini uid user")
+                    val note = Note(UUID.randomUUID().toString() , title, noteIsi, "ini uid user")
                     //yang ini create data note
                     createtemp(note)
 
@@ -84,7 +89,7 @@ class CreateNoteActivity : AppCompatActivity() {
         var noteIsi = binding.createnoteContent.text.toString().trim()
         var note = GlobalVar.listLogs[position]
         note.title = title
-        note.notes = noteIsi
+        note.content = noteIsi
     }
 
     private fun GetIntent() {
@@ -97,7 +102,7 @@ class CreateNoteActivity : AppCompatActivity() {
 
     private fun Display(note: Note) {
         binding.createnoteTitle.setText(note.title)
-        binding.createnoteContent.setText(note.notes)
+        binding.createnoteContent.setText(note.content)
 
     }
 

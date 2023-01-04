@@ -18,10 +18,10 @@ class LogbookRVAdapter(val listLogs: ArrayList<Note>, val cardListener: Cardlist
 
         fun setData(data: Note){
             binding.noteJudulTV.text = data.title
-            if (data.notes.length <= 40) {
-                binding.noteIsiTV.text = data.notes
+            if (data.content.length <= 40) {
+                binding.noteIsiTV.text = data.content
             } else {
-                binding.noteIsiTV.text = data.notes.substring(0, 40) + "    ..."
+                binding.noteIsiTV.text = data.content.substring(0, 40) + "    ..."
             }
 
             itemview.setOnClickListener{

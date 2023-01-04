@@ -2,7 +2,7 @@ package com.uc.vpfinalproject.model
 
 import android.os.Parcel
 
-data class Note(var title: String = "", var notes: String= "", var uuid: String?){
+data class Note(var id: String, var title: String = "", var content: String= "", var uuid: String?){
 
 
 

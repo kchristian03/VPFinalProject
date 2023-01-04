@@ -17,6 +17,7 @@ import com.uc.vpfinalproject.model.BaseResponse
 import com.uc.vpfinalproject.model.auth.DataLogoutResponse
 import com.uc.vpfinalproject.model.auth.DataUserResponse
 import com.uc.vpfinalproject.view.MainActivity
+import com.uc.vpfinalproject.view.yoga.OverviewActivity
 import com.uc.vpfinalproject.viewmodel.AuthViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -100,7 +101,17 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
         }
+
+        Listener()
+
         return root
+    }
+
+    private fun Listener() {
+        binding.meditateCV.setOnClickListener(){
+            val myIntent = Intent(activity, MeditateActivity::class.java)
+            startActivity(myIntent)
+        }
     }
 
     private fun processGetData(data: DataUserResponse?) {
