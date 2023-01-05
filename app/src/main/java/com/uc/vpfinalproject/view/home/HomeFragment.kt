@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.uc.vpfinalproject.R
-import com.uc.vpfinalproject.viewmodel.home.HomeViewModel
 import com.uc.vpfinalproject.databinding.FragmentHomeBinding
 import com.uc.vpfinalproject.helper.GlobalVar
 import com.uc.vpfinalproject.helper.GlobalVar.Companion.lastIncrementDate
@@ -22,8 +21,8 @@ import com.uc.vpfinalproject.model.BaseResponse
 import com.uc.vpfinalproject.model.auth.DataLogoutResponse
 import com.uc.vpfinalproject.model.auth.DataUserResponse
 import com.uc.vpfinalproject.view.MainActivity
-import com.uc.vpfinalproject.view.yoga.OverviewActivity
 import com.uc.vpfinalproject.viewmodel.AuthViewModel
+import com.uc.vpfinalproject.viewmodel.home.HomeViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -48,11 +47,14 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
 
-
-        if (token != null) {
-            viewModel.getDataUser(token)
+        if (GlobalVar.userData == null) {
+            if (token != null) {
+                viewModel.getDataUser(token)
+            }
+        } else {
+            val name = GlobalVar.userData?.data?.Name
+            showGreeting(name)
         }
-
 
         viewModel.getDataResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -110,7 +112,6 @@ class HomeFragment : Fragment() {
         Listener()
         animate()
 
-        showGreeting(GlobalVar.userData?.data?.Name)
         return root
     }
 
@@ -128,7 +129,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun Listener() {
-        binding.meditateCV.setOnClickListener(){
+        binding.meditateCV.setOnClickListener() {
             checkstreak()
             val myIntent = Intent(activity, MeditateActivity::class.java)
             startActivity(myIntent)
@@ -166,6 +167,8 @@ class HomeFragment : Fragment() {
     private fun processGetData(data: DataUserResponse?) {
 //        showToast("" + data?.message)
         if (data != null) {
+            val name = data.data?.Name
+            showGreeting(name)
 //            showToast("data not null")
             GlobalVar.userData = data
         }
@@ -173,15 +176,15 @@ class HomeFragment : Fragment() {
 
 
 
-        if(data?.data?.Streak == null){
+        if (data?.data?.Streak == null) {
             GlobalVar.currrentUserStreak = 0
             binding.streakTV.text = GlobalVar.currrentUserStreak.toString() + " Streak"
-        }else{
+        } else {
             GlobalVar.currrentUserStreak = data?.data?.Streak
             binding.streakTV.text = GlobalVar.currrentUserStreak.toString() + " Streak"
         }
 
-        if(data?.data?.Streak != null){
+        if (data?.data?.Streak != null) {
             lastIncrementDate = data.data.StreakDate
         }
 
@@ -199,7 +202,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun processLogout(data: DataLogoutResponse?) {
-//        showToast("" + data?.message)
+        showToast("" + data?.message)
+        GlobalVar.userData = null
         activity?.let { it1 -> SessionManager.clearData(it1) }
         val intent = Intent(activity, MainActivity::class.java)
         startActivity(intent)
@@ -230,7 +234,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun doLogout(viewModel: AuthViewModel, token: String?) {
-        if (token == null){
+        if (token == null) {
             showToast("Token is null")
         } else {
             viewModel.logoutUser(token)
