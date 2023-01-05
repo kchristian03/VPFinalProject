@@ -4,53 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/zenzen_light"
     tools:context=".view.note.CreateNoteActivity">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/createNoteCV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
-        app:cardBackgroundColor="#FFFFFF"
+    <EditText
+        android:id="@+id/createnoteTitle"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="Enter Note Title Here"
+        android:lineHeight="48dp"
+        android:lines="1"
+        android:maxHeight="48dp"
+        android:maxLength="64"
+        android:maxLines="1"
+        android:minHeight="48dp"
+        android:minLines="1"
+        android:padding="12dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <EditText
-            android:id="@+id/createnoteTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Enter Note Title Here"
-            android:minHeight="48dp"
-            android:paddingTop="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/createnoteContent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_below="@id/createNoteCV"
-        android:background="#140017"
-        android:backgroundTint="#140017"
+        android:layout_marginBottom="36dp"
+        android:background="@null"
         android:gravity="top|left"
         android:hint="Enter Note Content Here"
+        android:inputType="textMultiLine|textImeMultiLine"
         android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
+        android:singleLine="true"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createNoteCV" />
+        app:layout_constraintEnd_toEndOf="@+id/createnoteTitle"
+        app:layout_constraintStart_toStartOf="@+id/createnoteTitle"
+        app:layout_constraintTop_toBottomOf="@+id/createnoteTitle" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deletenoteFAB"

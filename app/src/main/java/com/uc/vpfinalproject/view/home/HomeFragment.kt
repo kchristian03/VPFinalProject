@@ -53,7 +53,6 @@ class HomeFragment : Fragment() {
             viewModel.getDataUser(token)
         }
 
-//        val nama = viewModel.getDataUser(token).
 
         viewModel.getDataResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -76,6 +75,7 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+
 
         viewModel.logoutResult.observe(viewLifecycleOwner) {
             when (it) {
@@ -110,6 +110,7 @@ class HomeFragment : Fragment() {
         Listener()
         animate()
 
+        showGreeting(GlobalVar.userData?.data?.Name)
         return root
     }
 
@@ -164,7 +165,13 @@ class HomeFragment : Fragment() {
 
     private fun processGetData(data: DataUserResponse?) {
         showToast("" + data?.message)
-        val namedata = data?.data?.Name
+        if (data != null) {
+//            showToast("data not null")
+            GlobalVar.userData = data
+        }
+
+
+
 
         if(data?.data?.Streak == null){
             GlobalVar.currrentUserStreak = 0
@@ -175,12 +182,12 @@ class HomeFragment : Fragment() {
         }
 
         if(data?.data?.Streak != null){
-            lastIncrementDate = data?.data?.StreakDate
+            lastIncrementDate = data.data.StreakDate
         }
 
-        if (namedata != null) {
-            showGreeting(namedata)
-        }
+//        if (namedata != null) {
+//            showGreeting(namedata)
+//        }
     }
 
     private fun processError(msg: String?) {
@@ -207,7 +214,7 @@ class HomeFragment : Fragment() {
         TODO("Not yet implemented")
     }
 
-    private fun showGreeting(name: String){
+    private fun showGreeting(name: String?) {
         val sdf = SimpleDateFormat("HH:mm:ss")
         val currentDate = sdf.format(Date())
 
@@ -218,8 +225,6 @@ class HomeFragment : Fragment() {
         } else if (currentDate >= "18:00:00" && currentDate <= "23:59:59") {
             binding.tvGreeting.text = getString(R.string.evening)
         }
-
-        val nama = "Patrick (Percobaan blm auto)"
 
         binding.tvName.text = name
     }

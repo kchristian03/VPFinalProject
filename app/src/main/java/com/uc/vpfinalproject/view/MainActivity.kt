@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.uc.vpfinalproject.R
+import com.uc.vpfinalproject.helper.SessionManager
 import com.uc.vpfinalproject.model.BaseResponse
 import com.uc.vpfinalproject.model.auth.DataPingResponse
 import com.uc.vpfinalproject.view.auth.LoginActivity
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+
 
 
     }

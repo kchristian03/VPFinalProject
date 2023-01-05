@@ -1,27 +1,32 @@
 package com.uc.vpfinalproject.adapter
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.uc.vpfinalproject.model.Note
 import com.uc.vpfinalproject.view.note.Cardlistener
 import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.CardNoteBinding
+import com.uc.vpfinalproject.model.note.Data
+import com.uc.vpfinalproject.model.note.DataNote
 
-class LogbookRVAdapter(val listLogs: ArrayList<Note>, val cardListener: Cardlistener) :
+class LogbookRVAdapter(val listNote: ArrayList<Data>, val cardListener: Cardlistener) :
     RecyclerView.Adapter<LogbookRVAdapter.viewHolder>() {
 
     class viewHolder (val itemview: View, val cardListener1: Cardlistener): RecyclerView.ViewHolder(itemview){
 
         val binding = CardNoteBinding.bind(itemview)
 
-        fun setData(data: Note){
-            binding.noteJudulTV.text = data.title
-            if (data.content.length <= 40) {
-                binding.noteIsiTV.text = data.content
+        fun setData(data: Data){
+            binding.noteJudulTV.text = data.Title
+//            data.Title.also { binding.noteJudulTV.text = it }
+            if (data.Content.length <= 40) {
+                binding.noteIsiTV.text = data.Content
             } else {
-                binding.noteIsiTV.text = data.content.substring(0, 40) + "    ..."
+                binding.noteIsiTV.text = data.Content.substring(0, 40) + "    ..."
             }
 
             itemview.setOnClickListener{
@@ -37,11 +42,11 @@ class LogbookRVAdapter(val listLogs: ArrayList<Note>, val cardListener: Cardlist
     }
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
-        holder.setData(listLogs[position])
+        holder.setData(listNote[position])
     }
 
     override fun getItemCount(): Int {
-        return listLogs.size
+        return listNote.size
     }
 
 
