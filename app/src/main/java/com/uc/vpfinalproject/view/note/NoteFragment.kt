@@ -59,20 +59,7 @@ class NoteFragment : Fragment(), Cardlistener {
 
 
         init(viewModel, token)
-        display()
 
-        binding.searchViewNote.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                noteAdaptor?.getFilter()?.filter(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                noteAdaptor?.getFilter()?.filter(newText);
-                return true
-            }
-
-        })
 
         return root
     }
@@ -128,7 +115,20 @@ class NoteFragment : Fragment(), Cardlistener {
             showToast(data.message)
             GlobalVar.listNote.addAll(data.data)
         }
+        display()
 
+        binding.searchViewNote.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                noteAdaptor?.getFilter()?.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                noteAdaptor?.getFilter()?.filter(newText);
+                return true
+            }
+
+        })
     }
 
     private fun processError(msg: String?) {
