@@ -1,20 +1,18 @@
-package com.uc.vpfinalproject.model.NoteRequest
+package com.uc.vpfinalproject.model.note
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Header
 
-data class deleteNoteResponse(
+data class CreateNoteResponse(
     @SerializedName("success") val success: Boolean,
     @SerializedName("message") val message: String,
-    @SerializedName("data")    val data: Data?,
+    @SerializedName("data") val data: Data?,
 ) {
     data class Data(
-        @Header("Authorization") val token: String,
         @SerializedName("ID") val ID: Int,
         @SerializedName("CreatedAt") val CreatedAt: String,
         @SerializedName("UpdatedAt") val UpdatedAt: String,
         @SerializedName("DeletedAt") val DeletedAt: String?,
-        @SerializedName("Title")     val Title: String,
-        @SerializedName("Content")   val Content: String,
+        @SerializedName("Title") val Title: String,
+        @SerializedName("Content") val Content: String,
     )
 }

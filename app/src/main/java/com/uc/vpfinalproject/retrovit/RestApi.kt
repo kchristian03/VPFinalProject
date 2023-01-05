@@ -2,10 +2,8 @@ package com.uc.vpfinalproject.retrovit
 
 import com.uc.vpfinalproject.helper.Const
 import com.uc.vpfinalproject.model.*
-import com.uc.vpfinalproject.model.NoteRequest.createNoteRequest
-import com.uc.vpfinalproject.model.NoteRequest.createNoteResponse
-import com.uc.vpfinalproject.model.NoteRequest.deleteNoteResponse
 import com.uc.vpfinalproject.model.auth.*
+import com.uc.vpfinalproject.model.note.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -36,12 +34,21 @@ interface RestApi {
 
     //create-note
     @Headers("Content-Type: application/json")
-    @POST(Const.REGISTER_URL)
-    suspend fun createNote(@Body createRequest: createNoteRequest): Response<createNoteResponse>
+    @POST(Const.CREATE_NOTE_URL)
+    suspend fun createNote(@Header("Authorization") token: String, @Body createNoteRequest: CreateNoteRequest): Response<CreateNoteResponse>
+
+    //get-note
+    @GET(Const.GET_NOTE_URL)
+    suspend fun getNote(@Header("Authorization") token: String): Response<GetNoteResponse>
+
+    //edit-note
+    @Headers("Content-Type: application/json")
+    @PUT(Const.EDIT_NOTE_URL)
+    suspend fun editNote(@Header("Authorization") token: String, @Body editNoteRequest: EditNoteRequest): Response<EditNoteResponse>
 
     //delete-note
-    @DELETE(Const.LOGOUT_URL)
-    suspend fun deleteNote(@Body deleteRequest: deleteNoteResponse): Response<deleteNoteResponse>
+    @DELETE(Const.DELETE_NOTE_URL)
+    suspend fun deleteNote(@Header("Authorization") token: String): Response<DeleteNoteResponse>
 
 
 
