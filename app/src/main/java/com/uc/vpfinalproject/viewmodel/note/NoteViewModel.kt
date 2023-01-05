@@ -1,51 +1,115 @@
 package com.uc.vpfinalproject.viewmodel.note
 
-import androidx.lifecycle.LiveData
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.annotations.SerializedName
 import com.uc.vpfinalproject.model.BaseResponse
-import com.uc.vpfinalproject.model.NoteRequest.*
-import com.uc.vpfinalproject.model.auth.*
+import com.uc.vpfinalproject.model.note.*
 import com.uc.vpfinalproject.repository.NoteRepository
-import com.uc.vpfinalproject.repository.UserRepository
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-class NoteViewModel : ViewModel() {
+class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val noteRepo = NoteRepository()
-    val createNoteResponse: MutableLiveData<BaseResponse<createNoteResponse>> = MutableLiveData()
-    val getNoteResponse : MutableLiveData<BaseResponse<getNoteResponse>> = MutableLiveData()
-    val deleteNoteResponse: MutableLiveData<BaseResponse<deleteNoteResponse>> = MutableLiveData()
-    val editNoteResponse : MutableLiveData<BaseResponse<editNoteResponse>> = MutableLiveData()
+    val createNoteResult: MutableLiveData<BaseResponse<CreateNoteResponse>> = MutableLiveData()
+    val getNoteResult : MutableLiveData<BaseResponse<GetNoteResponse>> = MutableLiveData()
+    val editNoteResult : MutableLiveData<BaseResponse<EditNoteResponse>> = MutableLiveData()
+    val deleteNoteResult: MutableLiveData<BaseResponse<DeleteNoteResponse>> = MutableLiveData()
 
-    fun createNote(title: String, content: String, user_id: Int){
-        createNoteResponse.value = BaseResponse.Loading()
+    fun createNote(token: String, title: String, content: String, user_id: Int){
+        createNoteResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
-                val createNoteRequest = createNoteRequest(
+                val token = "Bearer $token"
+                val createNoteRequest = CreateNoteRequest(
                     title = title,
                     content = content,
                     user_id = user_id,
-                    token = "token"
                 )
-                val response = noteRepo.createNote(createNoteRequest)
+                val response = noteRepo.createNote(token, createNoteRequest)
                 if(response?.code() == 200){
-                    createNoteResponse.value = BaseResponse.Success(response.body())
+                    createNoteResult.value = BaseResponse.Success(response.body())
                 }else if (response?.code() == 400) {
-                    createNoteResponse.value = BaseResponse.Error(
+                    createNoteResult.value = BaseResponse.Error(
                         response.errorBody()?.let { JSONObject(it.string()).getString("message") })
                 } else {
-                    createNoteResponse.value = BaseResponse.Error(
+                    createNoteResult.value = BaseResponse.Error(
                         response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
                 }
             } catch (ex: Exception){
-                createNoteResponse.value = BaseResponse.Error(ex.message)
+                createNoteResult.value = BaseResponse.Error(ex.message)
             }
         }
     }
 
+    fun getNote (token: String) {
+        getNoteResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val token = "Bearer $token"
+                val response = noteRepo.getNote(token)
+                if (response?.code() == 200) {
+                    getNoteResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    getNoteResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    getNoteResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                getNoteResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun editNote (token: String, title: String, content: String){
+        editNoteResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val token = "Bearer $token"
+                val editNoteRequest = EditNoteRequest(
+                    title = title,
+                    content = content
+                )
+                val response = noteRepo.editNote(token, editNoteRequest)
+                if (response?.code() == 200) {
+                    editNoteResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    editNoteResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    editNoteResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                editNoteResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
+
+    fun deleteNote (token: String) {
+        deleteNoteResult.value = BaseResponse.Loading()
+        viewModelScope.launch {
+            try {
+                val token = "Bearer $token"
+                val response = noteRepo.deleteNote(token)
+                if (response?.code() == 200) {
+                    deleteNoteResult.value = BaseResponse.Success(response.body())
+                } else if (response?.code() == 400) {
+                    deleteNoteResult.value = BaseResponse.Error(
+                        response.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                } else {
+                    deleteNoteResult.value = BaseResponse.Error(
+                        response?.errorBody()?.let { JSONObject(it.string()).getString("message") })
+                }
+            } catch (ex: Exception) {
+                deleteNoteResult.value = BaseResponse.Error(ex.message)
+            }
+        }
+    }
 
 }

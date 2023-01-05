@@ -1,11 +1,9 @@
-package com.uc.vpfinalproject.model.NoteRequest
+package com.uc.vpfinalproject.model.note
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Header
 
 
-data class createNoteRequest(
-    @Header("Authorization") val token: String,
+data class CreateNoteRequest(
     @SerializedName("title") val title: String?,
     @SerializedName("content") val content: String?,
     @SerializedName("user_id") val user_id: Int?
