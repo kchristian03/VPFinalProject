@@ -124,6 +124,18 @@ class HomeFragment : Fragment() {
         animator.repeatMode = ObjectAnimator.REVERSE
         animator.interpolator = LinearInterpolator()
         animator.start()
+
+        val animatortext = ObjectAnimator.ofPropertyValuesHolder(
+            binding.strtmeditasi,
+            PropertyValuesHolder.ofFloat("scaleX", 0.95f, 1.05f),
+            PropertyValuesHolder.ofFloat("scaleY", 0.95f, 1.05f)
+        )
+        animatortext.duration = 4000
+        animatortext.startDelay = 2000
+        animatortext.repeatCount = ObjectAnimator.INFINITE
+        animatortext.repeatMode = ObjectAnimator.REVERSE
+        animatortext.interpolator = LinearInterpolator()
+        animatortext.start()
     }
 
     private fun Listener() {
