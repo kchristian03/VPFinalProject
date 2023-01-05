@@ -1,10 +1,13 @@
 package com.uc.vpfinalproject.view.home
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.viewmodel.home.HomeViewModel
 import com.uc.vpfinalproject.databinding.FragmentHomeBinding
+import com.uc.vpfinalproject.helper.GlobalVar
+import com.uc.vpfinalproject.helper.GlobalVar.Companion.lastIncrementDate
 import com.uc.vpfinalproject.helper.SessionManager
 import com.uc.vpfinalproject.model.BaseResponse
 import com.uc.vpfinalproject.model.auth.DataLogoutResponse
@@ -20,7 +25,7 @@ import com.uc.vpfinalproject.view.MainActivity
 import com.uc.vpfinalproject.view.yoga.OverviewActivity
 import com.uc.vpfinalproject.viewmodel.AuthViewModel
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -103,20 +108,76 @@ class HomeFragment : Fragment() {
         }
 
         Listener()
+        animate()
 
         return root
     }
 
+    private fun animate() {
+        val animator = ObjectAnimator.ofPropertyValuesHolder(
+            binding.imageView3,
+            PropertyValuesHolder.ofFloat("scaleX", 0.95f, 1.05f),
+            PropertyValuesHolder.ofFloat("scaleY", 0.95f, 1.05f)
+        )
+        animator.duration = 6000
+        animator.repeatCount = ObjectAnimator.INFINITE
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.interpolator = LinearInterpolator()
+        animator.start()
+    }
+
     private fun Listener() {
         binding.meditateCV.setOnClickListener(){
+            checkstreak()
             val myIntent = Intent(activity, MeditateActivity::class.java)
             startActivity(myIntent)
+        }
+    }
+
+    private fun checkstreak() {
+        val currentDate = Date()
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+        val dateValue: Date? = lastIncrementDate?.let { dateFormat.parse(it) }
+        //store the latest increment date
+        if (lastIncrementDate == null) {
+            //increment value, if current day is not same as that of lastIncrementDate
+            GlobalVar.currrentUserStreak++
+            binding.streakTV.text = GlobalVar.currrentUserStreak.toString() + " Streak"
+            //store the latest increment date
+            lastIncrementDate = currentDate.toString()
+
+            //post value currentstreak and streakdate ke API disini
+
+        }
+        if (dateValue != null) {
+            if (dateValue.before(currentDate)) {
+                //increment value, if current day is not same as that of lastIncrementDate
+                GlobalVar.currrentUserStreak++
+                binding.streakTV.text = GlobalVar.currrentUserStreak.toString() + " Streak"
+                //store the latest increment date
+                lastIncrementDate = currentDate.toString()
+
+                //post value currentstreak and streakdate ke API disini
+            }
         }
     }
 
     private fun processGetData(data: DataUserResponse?) {
         showToast("" + data?.message)
         val namedata = data?.data?.Name
+
+        if(data?.data?.Streak == null){
+            GlobalVar.currrentUserStreak = 0
+            binding.streakTV.text = GlobalVar.currrentUserStreak.toString() + " Streak"
+        }else{
+            GlobalVar.currrentUserStreak = data?.data?.Streak
+            binding.streakTV.text = GlobalVar.currrentUserStreak.toString() + " Streak"
+        }
+
+        if(data?.data?.Streak != null){
+            lastIncrementDate = data?.data?.StreakDate
+        }
+
         if (namedata != null) {
             showGreeting(namedata)
         }
