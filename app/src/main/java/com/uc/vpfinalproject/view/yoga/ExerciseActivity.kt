@@ -55,7 +55,7 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun Listener() {
-        binding.pauseBTN.setOnClickListener(){
+        binding.pause2BTN.setOnClickListener(){
             if(isRunning){
                 pauseTimer()
             }else{
@@ -145,13 +145,13 @@ class ExerciseActivity : AppCompatActivity() {
     private fun pauseTimer() {
         countdown_timer.cancel()
         isRunning = false
-        binding.pauseBTN.text = "RESUME"
+        binding.pause2BTN.text = "RESUME"
     }
 
     private fun resumeTimer(){
         Timer(time)
         isRunning = true
-        binding.pauseBTN.text = "PAUSE"
+        binding.pause2BTN.text = "PAUSE"
     }
     
 
