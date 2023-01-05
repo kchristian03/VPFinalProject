@@ -33,11 +33,13 @@ class NoteFragment : Fragment(), Cardlistener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentNoteBinding.inflate(inflater, container, false)
+        binding.makeNoteTextView.visibility = View.GONE
+        stopLoading()
         val root: View = binding.root
         val viewModel by viewModels<NoteViewModel>()
         val token = activity?.let { SessionManager.fetchAuthToken(it) }
+
 
         binding.addNotesBTN.setOnClickListener() {
             val myIntent = Intent(activity, CreateNoteActivity::class.java)
@@ -64,14 +66,24 @@ class NoteFragment : Fragment(), Cardlistener {
         viewModel.getNoteResult.observe(viewLifecycleOwner) {
             when (it) {
                 is BaseResponse.Loading -> {
+                    showLoading()
                 }
                 is BaseResponse.Success -> {
+                    stopLoading()
                     processGetNote(it.data)
+                    if (GlobalVar.listNote.isEmpty()) {
+                        binding.makeNoteTextView.visibility = View.VISIBLE
+                    }else{
+                        binding.makeNoteTextView.visibility = View.GONE
+                    }
                 }
                 is BaseResponse.Error -> {
+                    stopLoading()
                     processError(it.msg)
                 }
-                else -> {}
+                else -> {
+                    stopLoading()
+                }
             }
         }
     }
@@ -103,13 +115,13 @@ class NoteFragment : Fragment(), Cardlistener {
     }
 
     private fun stopLoading() {
-//        binding.progressBarLogin.visibility = View.GONE
+        binding.progressBarNote.visibility = View.GONE
 //        binding.buttonLoginLogin.visibility = View.VISIBLE
     }
 
     private fun showLoading() {
 //        binding.buttonLoginLogin.visibility = View.GONE
-//        binding.progressBarLogin.visibility = View.VISIBLE
+        binding.progressBarNote.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
