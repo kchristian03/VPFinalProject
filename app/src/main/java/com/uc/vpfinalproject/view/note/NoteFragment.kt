@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,6 +27,8 @@ class NoteFragment : Fragment(), Cardlistener {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private lateinit var noteAdaptor: LogbookRVAdapter
+
     //temp array for rv
 
     override fun onCreateView(
@@ -33,12 +36,15 @@ class NoteFragment : Fragment(), Cardlistener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         _binding = FragmentNoteBinding.inflate(inflater, container, false)
         binding.makeNoteTextView.visibility = View.GONE
         stopLoading()
         val root: View = binding.root
         val viewModel by viewModels<NoteViewModel>()
         val token = activity?.let { SessionManager.fetchAuthToken(it) }
+
+
 
 
         binding.addNotesBTN.setOnClickListener() {
@@ -53,7 +59,20 @@ class NoteFragment : Fragment(), Cardlistener {
 
 
         init(viewModel, token)
-//        Display()
+        display()
+
+        binding.searchViewNote.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                noteAdaptor?.getFilter()?.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                noteAdaptor?.getFilter()?.filter(newText);
+                return true
+            }
+
+        })
 
         return root
     }
@@ -73,7 +92,7 @@ class NoteFragment : Fragment(), Cardlistener {
                     processGetNote(it.data)
                     if (GlobalVar.listNote.isEmpty()) {
                         binding.makeNoteTextView.visibility = View.VISIBLE
-                    }else{
+                    } else {
                         binding.makeNoteTextView.visibility = View.GONE
                     }
                 }
@@ -90,11 +109,13 @@ class NoteFragment : Fragment(), Cardlistener {
 
     private fun display() {
 //        val adapter = GlobalVar.listNote?.let { LogbookRVAdapter(it, this) }
-        val adapter =LogbookRVAdapter(GlobalVar.listNote, this)
-
-        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        binding.notesRV.layoutManager = layoutManager
-        binding.notesRV.adapter = adapter
+//        val adapter =LogbookRVAdapter(GlobalVar.listNote, this)
+        noteAdaptor = LogbookRVAdapter(GlobalVar.listNote, this)
+        binding.notesRV.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        binding.notesRV.adapter = noteAdaptor
+//        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+//        binding.notesRV.layoutManager = layoutManager
+//        binding.notesRV.adapter = adapter
     }
 
     private fun showToast(msg: String) {
@@ -107,7 +128,7 @@ class NoteFragment : Fragment(), Cardlistener {
             showToast(data.message)
             GlobalVar.listNote.addAll(data.data)
         }
-        display()
+
     }
 
     private fun processError(msg: String?) {
