@@ -164,7 +164,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun processGetData(data: DataUserResponse?) {
-        showToast("" + data?.message)
+//        showToast("" + data?.message)
         if (data != null) {
 //            showToast("data not null")
             GlobalVar.userData = data

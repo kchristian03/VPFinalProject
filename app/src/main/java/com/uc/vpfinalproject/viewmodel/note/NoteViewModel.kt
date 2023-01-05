@@ -66,7 +66,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun editNote (token: String, title: String, content: String){
+    fun editNote (id: Int, token: String, title: String, content: String){
         editNoteResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
@@ -75,7 +75,7 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
                     title = title,
                     content = content
                 )
-                val response = noteRepo.editNote(token, editNoteRequest)
+                val response = noteRepo.editNote(id, token, editNoteRequest)
                 if (response?.code() == 200) {
                     editNoteResult.value = BaseResponse.Success(response.body())
                 } else if (response?.code() == 400) {
@@ -91,12 +91,12 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun deleteNote (token: String) {
+    fun deleteNote (id: Int, token: String) {
         deleteNoteResult.value = BaseResponse.Loading()
         viewModelScope.launch {
             try {
                 val token = "Bearer $token"
-                val response = noteRepo.deleteNote(token)
+                val response = noteRepo.deleteNote(id, token)
                 if (response?.code() == 200) {
                     deleteNoteResult.value = BaseResponse.Success(response.body())
                 } else if (response?.code() == 400) {

@@ -14,11 +14,11 @@ class NoteRepository {
         return RestApi.getApi()?.getNote(token = token)
     }
 
-    suspend fun editNote(token: String, editNoteRequest: EditNoteRequest): Response<EditNoteResponse>?{
-        return RestApi.getApi()?.editNote(token = token, editNoteRequest = editNoteRequest)
+    suspend fun editNote(id: Int, token: String, editNoteRequest: EditNoteRequest): Response<EditNoteResponse>?{
+        return RestApi.getApi()?.editNote(id = id, token = token, editNoteRequest = editNoteRequest)
     }
 
-    suspend fun deleteNote(token: String): Response<DeleteNoteResponse>?{
-        return RestApi.getApi()?.deleteNote(token = token)
+    suspend fun deleteNote(id: Int, token: String): Response<DeleteNoteResponse>?{
+        return RestApi.getApi()?.deleteNote(id = id, token = token)
     }
 }

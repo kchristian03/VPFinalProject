@@ -44,11 +44,11 @@ interface RestApi {
     //edit-note
     @Headers("Content-Type: application/json")
     @PUT(Const.EDIT_NOTE_URL)
-    suspend fun editNote(@Header("Authorization") token: String, @Body editNoteRequest: EditNoteRequest): Response<EditNoteResponse>
+    suspend fun editNote(@Path("id") id: Int, @Header("Authorization") token: String, @Body editNoteRequest: EditNoteRequest): Response<EditNoteResponse>
 
     //delete-note
     @DELETE(Const.DELETE_NOTE_URL)
-    suspend fun deleteNote(@Header("Authorization") token: String): Response<DeleteNoteResponse>
+    suspend fun deleteNote(@Path("id") id: Int, @Header("Authorization") token: String): Response<DeleteNoteResponse>
 
 
 

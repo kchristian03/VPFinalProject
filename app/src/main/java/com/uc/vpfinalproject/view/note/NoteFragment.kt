@@ -120,13 +120,13 @@ class NoteFragment : Fragment(), Cardlistener {
     @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
-        GlobalVar.listNote?.let { LogbookRVAdapter(it, this) }?.notifyDataSetChanged()
+        LogbookRVAdapter(GlobalVar.listNote, this).notifyDataSetChanged()
     }
 
-    override fun onCardClick(position: Int) {
+    override fun onCardClick(position: Int, id: Int) {
 
         val myIntent = Intent(activity, CreateNoteActivity::class.java).apply {
-            putExtra("position", position)
+            putExtra("position", position); putExtra("id", id)
         }
         startActivity(myIntent)
     }

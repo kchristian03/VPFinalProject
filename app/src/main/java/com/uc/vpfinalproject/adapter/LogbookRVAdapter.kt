@@ -30,7 +30,7 @@ class LogbookRVAdapter(val listNote: ArrayList<Data>, val cardListener: Cardlist
             }
 
             itemview.setOnClickListener{
-                cardListener1.onCardClick(adapterPosition)
+                cardListener1.onCardClick(adapterPosition, data.ID)
             }
         }
     }
@@ -43,6 +43,7 @@ class LogbookRVAdapter(val listNote: ArrayList<Data>, val cardListener: Cardlist
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         holder.setData(listNote[position])
+
     }
 
     override fun getItemCount(): Int {
