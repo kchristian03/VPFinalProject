@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#140017"
+    android:backgroundTint="#140017"
     android:elevation="10dp"
     tools:context=".view.home.HomeFragment">
 
@@ -38,8 +40,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="#F44336"
+        android:backgroundTint="#E6E6E6"
         android:text="@string/logout"
+        android:textColor="#000000"
+        app:cornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/tvGreeting"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tvGreeting" />
