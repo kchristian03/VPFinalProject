@@ -16,5 +16,9 @@ data class DataUserResponse(
         @SerializedName("Name") val Name: String,
         @SerializedName("Email") val Email: String,
         @SerializedName("Username") val Username: String,
+        @SerializedName("Password") val Password: String,
+        @SerializedName("Streak") val Streak: Int,
+        @SerializedName("StreakDate") val StreakDate: String,
+        @SerializedName("ProfilePic") val ProfilePic: String,
     )
 }

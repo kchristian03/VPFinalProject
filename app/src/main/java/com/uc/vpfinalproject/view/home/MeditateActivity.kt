@@ -3,9 +3,11 @@ package com.uc.vpfinalproject.view.home
 import android.animation.ObjectAnimator
 import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
@@ -16,7 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.fixedRateTimer
 
 class MeditateActivity : AppCompatActivity() {
 
@@ -34,6 +38,7 @@ class MeditateActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         watch.start()
 
@@ -54,8 +59,14 @@ class MeditateActivity : AppCompatActivity() {
 
     private fun Listener() {
 
-        val fadeInOutAnimator = ValueAnimator.ofFloat(0.2f, 1f)
-        fadeInOutAnimator.duration = 2000
+        val animatorScreen = ObjectAnimator.ofFloat(window.decorView, "alpha", 1f, 0.85f, 0.65f, 0.85f, 1f)
+        animatorScreen.duration = 8000
+        animatorScreen.repeatCount = ObjectAnimator.INFINITE
+        animatorScreen.interpolator = LinearInterpolator()
+        animatorScreen.start()
+
+        val fadeInOutAnimator = ValueAnimator.ofFloat(0.7f, 1f)
+        fadeInOutAnimator.duration = 4000
         fadeInOutAnimator.repeatMode = ValueAnimator.REVERSE
         fadeInOutAnimator.repeatCount = ValueAnimator.INFINITE
         fadeInOutAnimator.addUpdateListener { animation ->
@@ -82,11 +93,13 @@ class MeditateActivity : AppCompatActivity() {
                 watch.stop()
                 fadeInOutAnimator.cancel()
                 animator.cancel()
+                animatorScreen.cancel()
             }else{
                 play = true
                 watch.start()
                 fadeInOutAnimator.start()
                 animator.start()
+                animatorScreen.start()
             }
         }
 
@@ -100,6 +113,16 @@ class MeditateActivity : AppCompatActivity() {
     private fun animate() {
 
     }
+
+    fun animateScreen() {
+        val animatorScreen = ObjectAnimator.ofFloat(window.decorView, "alpha", 0.8f, 0f, 0.5f, 1f)
+        animatorScreen.duration = 4000
+        animatorScreen.repeatCount = ObjectAnimator.INFINITE
+        animatorScreen.interpolator = LinearInterpolator()
+        animatorScreen.start()
+    }
+
+
 
     class Stopwatch {
 
