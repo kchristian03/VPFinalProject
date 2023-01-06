@@ -42,6 +42,26 @@ class YogaFragment : Fragment() {
     }
 
     private fun Listener() {
+        binding.beginnerCV.setOnClickListener(){
+            if(binding.hiddenView.visibility == View.VISIBLE){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(binding.beginnerCV, AutoTransition())
+                    TransitionManager.beginDelayedTransition(binding.interCV, AutoTransition().setDuration(800))
+                    TransitionManager.beginDelayedTransition(binding.advancedCV, AutoTransition().setDuration(800))
+                }
+                binding.hiddenView.visibility = View.GONE
+                binding.arrowButton.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(binding.beginnerCV, AutoTransition())
+                    TransitionManager.beginDelayedTransition(binding.interCV, AutoTransition())
+                    TransitionManager.beginDelayedTransition(binding.advancedCV, AutoTransition())
+                }
+                binding.hiddenView.visibility = View.VISIBLE
+                binding.arrowButton.setImageResource(R.drawable.ic_baseline_expand_less_24)
+            }
+        }
+
         binding.arrowButton.setOnClickListener(){
             if(binding.hiddenView.visibility == View.VISIBLE){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -69,6 +89,24 @@ class YogaFragment : Fragment() {
             requireActivity().startActivity(myIntent)
         }
 
+        binding.interCV.setOnClickListener(){
+            if(binding.hiddenView2.visibility == View.VISIBLE){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(binding.interCV, AutoTransition())
+                    TransitionManager.beginDelayedTransition(binding.advancedCV, AutoTransition().setDuration(800))
+                }
+                binding.hiddenView2.visibility = View.GONE
+                binding.arrowButton2.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(binding.interCV, AutoTransition())
+                    TransitionManager.beginDelayedTransition(binding.advancedCV, AutoTransition())
+                }
+                binding.hiddenView2.visibility = View.VISIBLE
+                binding.arrowButton2.setImageResource(R.drawable.ic_baseline_expand_less_24)
+            }
+        }
+
         binding.arrowButton2.setOnClickListener(){
             if(binding.hiddenView2.visibility == View.VISIBLE){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -92,6 +130,22 @@ class YogaFragment : Fragment() {
                 putExtra("lvl", "intermediate")
             }
             requireActivity().startActivity(myIntent2)
+        }
+
+        binding.advancedCV.setOnClickListener(){
+            if(binding.hiddenView3.visibility == View.VISIBLE){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(binding.advancedCV, AutoTransition())
+                }
+                binding.hiddenView3.visibility = View.GONE
+                binding.arrowButton3.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            }else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    TransitionManager.beginDelayedTransition(binding.advancedCV, AutoTransition())
+                }
+                binding.hiddenView3.visibility = View.VISIBLE
+                binding.arrowButton3.setImageResource(R.drawable.ic_baseline_expand_less_24)
+            }
         }
 
         binding.arrowButton3.setOnClickListener(){
