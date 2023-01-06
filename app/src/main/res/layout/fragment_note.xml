@@ -19,19 +19,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="Meditation Journal" />
 
+    <SearchView
+        android:id="@+id/searchView_note"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:goIcon="@drawable/ic_baseline_search_24"
+        android:iconifiedByDefault="false"
+        android:layoutDirection="rtl"
+        android:minWidth="72dp"
+        android:minHeight="48dp"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="Search"
+        app:chainUseRtl="false"
+        app:guidelineUseRtl="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarNote" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="72dp"
-        android:paddingBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarNote"
+        app:layout_constraintTop_toBottomOf="@+id/searchView_note"
+        app:layout_constraintVertical_bias="0.0"
         app:layout_marginBaseline="100dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -48,4 +69,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <ProgressBar
+        android:id="@+id/progressBarNote"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/notesRV"
+        app:layout_constraintEnd_toEndOf="@+id/notesRV"
+        app:layout_constraintStart_toStartOf="@+id/notesRV"
+        app:layout_constraintTop_toTopOf="@+id/notesRV" />
+
+    <TextView
+        android:id="@+id/makeNote_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make a Note"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="@+id/notesRV"
+        app:layout_constraintEnd_toEndOf="@+id/notesRV"
+        app:layout_constraintStart_toStartOf="@+id/notesRV"
+        app:layout_constraintTop_toTopOf="@+id/notesRV" />
 </androidx.constraintlayout.widget.ConstraintLayout>

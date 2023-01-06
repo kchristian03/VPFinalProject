@@ -14,6 +14,7 @@ import com.uc.vpfinalproject.model.BaseResponse
 import com.uc.vpfinalproject.model.Note
 import com.uc.vpfinalproject.model.note.CreateNoteResponse
 import com.uc.vpfinalproject.model.note.Data
+import com.uc.vpfinalproject.model.note.DeleteNoteResponse
 import com.uc.vpfinalproject.model.note.EditNoteResponse
 import com.uc.vpfinalproject.view.NavBarActivity
 import com.uc.vpfinalproject.viewmodel.note.NoteViewModel
@@ -23,6 +24,7 @@ class CreateNoteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCreateNoteBinding
     private var position = -1
+    private var id = -1
     private val viewModel by viewModels<NoteViewModel>()
 //    private val token = SessionManager.fetchAuthToken(this)
 //    private val uid = GlobalVar.userData?.data?.ID
@@ -74,6 +76,21 @@ class CreateNoteActivity : AppCompatActivity() {
                 }
             }
         }
+
+        viewModel.deleteNoteResult.observe(this) {
+            when (it) {
+                is BaseResponse.Loading -> {
+                }
+
+                is BaseResponse.Success -> {
+                    processDeleteNote(it.data)
+                }
+
+                is BaseResponse.Error -> {
+                    processError(it.msg)
+                }
+            }
+        }
     }
 
     private fun processError(msg: String?) {
@@ -87,6 +104,12 @@ class CreateNoteActivity : AppCompatActivity() {
     }
 
     private fun processEditNote(data: EditNoteResponse?) {
+        if (data != null) {
+            showToast(data.message)
+        }
+    }
+
+    private fun processDeleteNote(data: DeleteNoteResponse?) {
         if (data != null) {
             showToast(data.message)
         }
@@ -111,7 +134,10 @@ class CreateNoteActivity : AppCompatActivity() {
 
                     //yang ini edit data note
 //                    edittemp()
-
+                    val id = id
+                    if (token != null && id != null) {
+                        viewModel.editNote(id, token, title, content)
+                    }
 
                     binding.progressBarcreatenote.visibility = View.GONE
                     startActivity(Intent(this, NavBarActivity::class.java))
@@ -132,7 +158,13 @@ class CreateNoteActivity : AppCompatActivity() {
         }
         binding.deletenoteFAB.setOnClickListener() {
             //delete data note
-            GlobalVar.listLogs.removeAt(position)
+            val token = SessionManager.fetchAuthToken(this)
+            val id = id
+            if (token != null && id != null) {
+                viewModel.deleteNote(id, token)
+            }
+
+//            GlobalVar.listLogs.removeAt(position)
 
             startActivity(Intent(this, NavBarActivity::class.java))
             finish()
@@ -154,6 +186,7 @@ class CreateNoteActivity : AppCompatActivity() {
     private fun GetIntent() {
         position = intent.getIntExtra("position", -1)
         if (position != -1) {
+            id = intent.getIntExtra("id", -1)
             val note = GlobalVar.listNote[position]
             display(note)
         }

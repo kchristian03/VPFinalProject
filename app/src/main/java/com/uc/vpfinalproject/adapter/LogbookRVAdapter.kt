@@ -12,9 +12,16 @@ import com.uc.vpfinalproject.R
 import com.uc.vpfinalproject.databinding.CardNoteBinding
 import com.uc.vpfinalproject.model.note.Data
 import com.uc.vpfinalproject.model.note.DataNote
+import android.widget.Filter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class LogbookRVAdapter(val listNote: ArrayList<Data>, val cardListener: Cardlistener) :
     RecyclerView.Adapter<LogbookRVAdapter.viewHolder>() {
+
+    val initialNotessDataList = ArrayList<Data>().apply {
+        listNote?.let { addAll(it) }
+    }
 
     class viewHolder (val itemview: View, val cardListener1: Cardlistener): RecyclerView.ViewHolder(itemview){
 
@@ -30,7 +37,7 @@ class LogbookRVAdapter(val listNote: ArrayList<Data>, val cardListener: Cardlist
             }
 
             itemview.setOnClickListener{
-                cardListener1.onCardClick(adapterPosition)
+                cardListener1.onCardClick(adapterPosition, data.ID)
             }
         }
     }
@@ -43,10 +50,51 @@ class LogbookRVAdapter(val listNote: ArrayList<Data>, val cardListener: Cardlist
 
     override fun onBindViewHolder(holder: viewHolder, position: Int) {
         holder.setData(listNote[position])
+
     }
 
     override fun getItemCount(): Int {
         return listNote.size
+    }
+
+    fun getFilter(): Filter{
+        return filter
+    }
+
+    private val filter = object: Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList = ArrayList<Data>()
+            if (constraint == null || constraint.isEmpty()){
+                initialNotessDataList.let { filteredList.addAll(it) }
+//                filteredList.addAll(initialNotessDataList)
+            } else {
+                val query = constraint.toString().trim().lowercase(Locale.ROOT)
+                initialNotessDataList.forEach {
+                    if (it.Title.lowercase(Locale.ROOT).contains(query)) {
+                        filteredList.add(it)
+                    }
+                }
+//                }
+////                val filterPattern = constraint.toString().lowercase(Locale.ROOT).trim()
+//                for (item in initialNotessDataList){
+//                    if (item.Title.lowercase(Locale.ROOT).contains(filterPattern)){
+//                        filteredList.add(item)
+//                    }
+//                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            listNote.clear()
+            listNote.addAll(results?.values as ArrayList<Data>)
+            notifyDataSetChanged()
+        }
+
+
+
     }
 
 

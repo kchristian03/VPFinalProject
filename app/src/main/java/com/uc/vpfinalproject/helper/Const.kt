@@ -14,8 +14,8 @@ object Const {
     //note
     const val CREATE_NOTE_URL = "api/notes/create"
     const val GET_NOTE_URL = "api/notes/get"
-    const val EDIT_NOTE_URL = "api/notes/edit/:id"
-    const val DELETE_NOTE_URL = "api/notes/delete:id"
+    const val EDIT_NOTE_URL = "api/notes/edit/{id}"
+    const val DELETE_NOTE_URL = "api/notes/delete/{id}"
 
 
 }
