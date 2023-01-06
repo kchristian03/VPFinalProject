@@ -142,7 +142,7 @@ class HomeFragment : Fragment() {
 
     private fun Listener() {
         binding.meditateCV.setOnClickListener() {
-            checkstreak()
+            //checkstreak()
             val myIntent = Intent(activity, MeditateActivity::class.java)
             startActivity(myIntent)
         }
